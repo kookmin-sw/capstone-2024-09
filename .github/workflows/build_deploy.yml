@@ -2,9 +2,9 @@ name: build docker image
 
 on:
   push:
-    branches: [develop]
+    branches: [main]
   pull_request:
-    branches: [main, develop]
+    branches: [main]
 
 #환경설정
 env:
