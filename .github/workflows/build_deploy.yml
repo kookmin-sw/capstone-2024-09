@@ -76,8 +76,8 @@ jobs:
       # docker run
       - name: Docker run
         run: |
-          docker stop nginx && \
-          docker rmi -f ${{ env.DOCKER_NGINX_IMAGE }}:latest
+          docker stop streamlit_app && \
+          docker rmi -f ${{ env.DOCKER_APP_IMAGE }}:latest
           docker pull ${{ env.DOCKER_APP_IMAGE }}:latest
           cd /home/iscmyoo/
           docker-compose up --build -d
