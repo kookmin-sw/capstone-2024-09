@@ -7,8 +7,6 @@ RUN mkdir -p /capstone_design/app
 WORKDIR /capstone_design/app
 COPY . /capstone_design/app
 
-RUN ls -al
-
 # requirements.txt 실행
 RUN pip3 install --upgrade pip
-RUN pip3 install -r ./etc/requirement.txt
+RUN pip3 install -r ./capstone_design/app/etc/requirement.txt
