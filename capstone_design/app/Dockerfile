@@ -3,10 +3,10 @@ FROM python:3.10.10
 
 MAINTAINER iscmyoo <sung32114@gmail.com>
 
-RUN mkdir -p /capstone_design/app
-WORKDIR /capstone_design/app
-COPY /capstone_design/app/ /capstone_design/app
+RUN mkdir -p /Final_Project
+WORKDIR /Final_Project
+COPY . /Final_Project
 
 # requirements.txt 실행
 RUN pip3 install --upgrade pip
-RUN pip3 install -r ./etc/requirements.txt
+RUN pip3 install -r ./capstone_design/app/etc/requirement.txt
