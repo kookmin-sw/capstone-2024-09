@@ -3,9 +3,9 @@ FROM python:3.10.10
 
 MAINTAINER iscmyoo <sung32114@gmail.com>
 
-RUN mkdir -p /capstone_design/app
-WORKDIR /capstone_design/app
-COPY . /capstone_design/app
+RUN mkdir -p /Final_Project
+WORKDIR /Final_Project
+COPY . /Final_Project
 
 # requirements.txt 실행
 RUN pip3 install --upgrade pip
