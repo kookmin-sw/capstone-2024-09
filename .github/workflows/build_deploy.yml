@@ -64,8 +64,11 @@ jobs:
           username: ${{ secrets.USER }}
           password: ${{ secrets.PW }}
           port: ${{ secrets.PORT }}
-          source: './capstone-2024-09/docker-compose.yml'
+          source: '.'
           target: '/home/iscmyoo/'
+      - name: path check
+        run: |
+          ls -al
       # ghcr 로그인
       - name: Login to ghcr
         uses: docker/login-action@v3
