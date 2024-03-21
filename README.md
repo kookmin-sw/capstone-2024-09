@@ -1,6 +1,6 @@
 # Welcome to GitHub
 
-캡스톤 팀 생성을 축하합니다.
+공식 캡스톤 레포를 Seo-yeong-Chae 레포로 fork한 곳임
 
 ## 팀소개 및 페이지를 꾸며주세요.
 
