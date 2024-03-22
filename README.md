@@ -12,7 +12,7 @@
   - 프로젝트 소개 및 팀원 소개
   - index.md 예시보고 수정.
 
-- GitHub Pages 리파지토리 Settings > Options > GitHub Pages 
+- GitHub Pages 리파지토리 Settings > Options > GitHub Pages
   - Source를 marster branch
   - Theme Chooser에서 태마선택
   - 수정후 팀페이지 확인하여 점검.
