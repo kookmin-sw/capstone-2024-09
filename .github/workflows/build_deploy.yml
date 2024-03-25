@@ -51,7 +51,7 @@ jobs:
   deploy:
     needs: build # build 이후에 실행
     name: Deploy docker image
-    runs-on: [self-hosted, label-go] # AWS ./configure에서 사용할 label명
+    runs-on: [self-hosted, label-test] # AWS ./configure에서 사용할 label명
     steps:
       # github repository에서 checkout
       - name: checkout
