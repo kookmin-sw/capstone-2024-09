@@ -1,0 +1,9 @@
+version: '3'
+services:
+  app:
+    container_name: streamlit_app
+    restart: always
+    image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-streamlit_develop
+    ports:
+      - "8501:8501"
+    command: streamlit run ./capstone_design/app/app.py
