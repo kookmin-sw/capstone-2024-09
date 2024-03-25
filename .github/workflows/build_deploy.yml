@@ -60,8 +60,8 @@ jobs:
       - name: Deploy docker_compose file
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
+          host: ${{ secrets.DEVELOP_HOST }}
+          username: ${{ secrets.DEVELOP_USER }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           source: './docker-compose.yml'
