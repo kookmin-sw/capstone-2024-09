@@ -6,4 +6,4 @@ services:
     image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-streamlit_develop
     ports:
       - "8501:8501"
-    command: streamlit run ./app.py
+    command: streamlit run ./capstone_design/app/app.py
