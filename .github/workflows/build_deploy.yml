@@ -2,9 +2,9 @@ name: build docker image
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
-    branches: [main]
+    branches: [main, develop]
 
 #환경설정
 env:
@@ -51,7 +51,7 @@ jobs:
   deploy:
     needs: build # build 이후에 실행
     name: Deploy docker image
-    runs-on: [self-hosted, label-go] # AWS ./configure에서 사용할 label명
+    runs-on: [self-hosted, label-test] # AWS ./configure에서 사용할 label명
     steps:
       # github repository에서 checkout
       - name: checkout
@@ -60,9 +60,9 @@ jobs:
       - name: Deploy docker_compose file
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.PW }}
+          host: ${{ secrets.DEVELOP_HOST }}
+          username: ${{ secrets.DEVELOP_USER }}
+          key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           source: './docker-compose.yml'
           target: '/home/ubuntu/'
