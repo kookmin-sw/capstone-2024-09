@@ -7,3 +7,13 @@ services:
     ports:
       - "8501:8501"
     command: streamlit run ./capstone_design/app/app.py
+
+  nginx:
+    container_name: proxy_nginx
+    restart: always
+    image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx_develop
+    ports:
+      - "8080:8080"
+    depends_on: :
+      - app
+
