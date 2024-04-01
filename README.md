@@ -20,7 +20,7 @@
 <img alt="Html" src ="https://img.shields.io/badge/GHCR-181717.svg?&style=for-the-badge&logo=github&logoColor=white"/><img alt="Html" src ="https://img.shields.io/badge/Docker-2496ED.svg?&style=for-the-badge&logo=Docker&logoColor=white"/> <img alt="Html" src ="https://img.shields.io/badge/Github Actions-2088FF.svg?&style=for-the-badge&logo=Github Actions&logoColor=white"/>
 
 ### 🖥 AI
-<img alt="Html" src="https://img.shields.io/badge/scikit-learn-F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white"> <img src="https://img.shields.io/badge/google colab-F9AB00?style=for-the-badge&logo=google colab&logoColor=white"> \
+<img alt="Html" src="https://img.shields.io/badge/scikit learn-F7931E.svg?style=for-the-badge&logo=scikitlearn&logoColor=white"> <img src="https://img.shields.io/badge/google colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white"> \
 <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white">  <img src="https://img.shields.io/badge/numpy-013243?style=for-the-badge&logo=numpy&logoColor=white"> <img src="https://img.shields.io/badge/json-000000?style=for-the-badge&logo=json&logoColor=white">
 
 ### 🖥 협업
