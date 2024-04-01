@@ -74,7 +74,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
-          key: ${{ secrets.PW }}
+          password: ${{ secrets.PW }}
           port: ${{ secrets.PORT }}
           source: './docker-compose.yml'
           target: '/home/iscmyoo/'
