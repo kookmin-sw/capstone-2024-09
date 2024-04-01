@@ -76,8 +76,10 @@ jobs:
         run: |
           if [ "${{ github.base_ref }}" == "main" ]; then
             echo "label=self-hosted, label-go" >> $GITHUB_OUTPUT
+            echo "label=self-hosted, label-go"
           elif [ "${{ github.base_ref }}" == "develop" ]; then
             echo "label=self-hosted, label-test" >> $GITHUB_OUTPUT
+            echo "label=self-hosted, label-test"
           fi
         shell: bash
 
