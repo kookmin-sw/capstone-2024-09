@@ -20,7 +20,7 @@
 <img alt="Html" src ="https://img.shields.io/badge/GHCR-181717.svg?&style=for-the-badge&logo=github&logoColor=white"/><img alt="Html" src ="https://img.shields.io/badge/Docker-2496ED.svg?&style=for-the-badge&logo=Docker&logoColor=white"/> <img alt="Html" src ="https://img.shields.io/badge/Github Actions-2088FF.svg?&style=for-the-badge&logo=Github Actions&logoColor=white"/>
 
 ### 🖥 AI
-
+<img src="https://img.shields.io/badge/scikitlearn-#F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white">
 
 ### 🖥 협업
 <img alt="Html" src ="https://img.shields.io/badge/github-181717.svg?&style=for-the-badge&logo=github&logoColor=white"/><img alt="Html" src ="https://img.shields.io/badge/Notion-000000.svg?&style=for-the-badge&logo=Notion&logoColor=white"/><img alt="Html" src ="https://img.shields.io/badge/Slack-4A154B.svg?&style=for-the-badge&logo=Slack&logoColor=white"/>
