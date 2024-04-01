@@ -10,3 +10,4 @@ COPY . /Final_Project
 # requirements.txt 실행
 RUN pip3 install --upgrade pip
 RUN pip3 install -r ./capstone_design/app/etc/requirement.txt
+RUN pip3 install python-dotenv
