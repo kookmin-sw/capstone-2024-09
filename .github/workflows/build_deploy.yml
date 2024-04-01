@@ -77,7 +77,7 @@ jobs:
   deploy:
     needs: build # build 이후에 실행
     name: Deploy docker image
-    runs-on: ${{ env.RUNNER_LABEL }}
+    runs-on: ${{ steps.set-runner-label.outputs.label }}
     steps:
       # github repository에서 checkout
       - name: checkout
