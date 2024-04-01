@@ -10,10 +10,8 @@ on:
 env:
   DOCKER_APP_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-streamlit
   DOCKER_NGINX_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx
-  DEPLOY_LABEL_TAG: label-go
   WORKING_DIR: /home/iscmyoo
   SCP_AUTH_OPTION: ${{ secrets.SERVER_PASSWORD }}
-  RUNNER_LABEL: self-hosted, label-go
   VERSION: ${{ github.sha }}
   NAME: capstone_streamlit_develop
   REGISTRY: ghcr.io
@@ -37,7 +35,6 @@ jobs:
             echo "DEPLOY_LABEL_TAG=label-test" >> $GITHUB_ENV
             echo "WORKING_DIR=/home/ubuntu" >> $GITHUB_ENV
             echo "SCP_AUTH_OPTION=${{ secrets.KEY }}" >> $GITHUB_ENV
-            echo "RUNNER_LABEL=self-hosted, label-test" >> $GITHUB_ENV
           fi
       # docker를 사용하기 위한 기본 세팅
       - name: Set up Docker buildx
@@ -74,10 +71,25 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+  set-runner-label:
+    name: Set Runner Label
+    runs-on: ubuntu-latest
+    outputs:
+      label: ${{ steps.set-label.outputs.label }}
+    steps:
+      - id: set-label
+        run: |
+          if [ "${{ github.base_ref }}" == "main" ]; then
+            echo "label=self-hosted, label-go" >> $GITHUB_OUTPUT
+          elif [ "${{ github.base_ref }}" == "develop" ]; then
+            echo "label=self-hosted, label-test" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
+
   deploy:
-    needs: build # build 이후에 실행
+    needs: [build, set-runner-label]
     name: Deploy docker image
-    runs-on: ${{ steps.set-runner-label.outputs.label }}
+    runs-on: ${{ needs.set-runner-label.outputs.label }}
     steps:
       # github repository에서 checkout
       - name: checkout
