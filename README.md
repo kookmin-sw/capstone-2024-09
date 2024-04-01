@@ -30,7 +30,11 @@
 챗봇을 활용하여 학생들의 진로 상담을 진행하고, 상담을 통해 수집한 데이터를 기반으로 학생에게 적합한 직업을 추천해주며, 해당 직업의 현재 수요, 전망, 준비 과정 등 보다 구체적인 데이터를 제공함으로서 진로 상담을 진행하는 서비스 입니다.
 
 
-
+<img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white">
+<img src="https://img.shields.io/badge/googlecolab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white">
+<img src="https://img.shields.io/badge/numpy-013243?style=for-the-badge&logo=numpy&logoColor=white">
+<img alt="Html" src="https://img.shields.io/badge/scikitlearn-F7931E.svg?style=for-the-badge&logo=scikitlearn&logoColor=white">
+<img src="https://img.shields.io/badge/json-000000?style=for-the-badge&logo=json&logoColor=white">
 ### 2. 소개 영상
 
 프로젝트 소개하는 영상을 추가하세요
