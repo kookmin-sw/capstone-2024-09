@@ -13,6 +13,7 @@ env:
   DEPLOY_LABEL_TAG: label-go
   WORKING_DIR: /home/iscmyoo
   SCP_AUTH_OPTION: ${{ secrets.SERVER_PASSWORD }}
+  RUNNER_LABEL: self-hosted, label-go
   VERSION: ${{ github.sha }}
   NAME: capstone_streamlit_develop
   REGISTRY: ghcr.io
@@ -36,6 +37,7 @@ jobs:
             echo "DEPLOY_LABEL_TAG=label-test" >> $GITHUB_ENV
             echo "WORKING_DIR=/home/ubuntu" >> $GITHUB_ENV
             echo "SCP_AUTH_OPTION=${{ secrets.KEY }}" >> $GITHUB_ENV
+            echo "RUNNER_LABEL=self-hosted, label-test" >> $GITHUB_ENV
           fi
       # docker를 사용하기 위한 기본 세팅
       - name: Set up Docker buildx
@@ -75,7 +77,7 @@ jobs:
   deploy:
     needs: build # build 이후에 실행
     name: Deploy docker image
-    runs-on: [self-hosted, ${{ env.DEPLOY_LABEL_TAG }}] # AWS ./configure에서 사용할 label명
+    runs-on: ${{ env.RUNNER_LABEL }}
     steps:
       # github repository에서 checkout
       - name: checkout
