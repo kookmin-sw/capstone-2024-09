@@ -7,7 +7,6 @@ import requests
 load_dotenv()
 
 API_URL = "https://api-inference.huggingface.co/models/Yeongchae/my_consulting_ai_model"    # 파인튜닝한 polyglot이 저장된 경로 기입
-# API_TOKEN = "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"
 API_TOKEN = mySecret = os.environ.get('Huggingface_API_TOEKN')                   # 코드 작성자의 hugging face api 토큰 (write 권한 있음) 기입
 headers = {"Authorization": f"Bearer {API_TOKEN}"}                   # ai 모델에 요청을 보낼 때, 함께 보낼 헤더 데이터 기입
 
