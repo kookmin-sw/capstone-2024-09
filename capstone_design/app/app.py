@@ -1,7 +1,7 @@
 import streamlit as st
 from streamlit_chat import message
 from dotenv import load_dotenv
-import requests
+import requests, os
 
 #laod env
 load_dotenv()
