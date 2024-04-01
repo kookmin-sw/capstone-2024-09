@@ -23,6 +23,8 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10.10"]
+    outputs:
+      label: ${{ steps.set-label.outputs.label }}
     steps:
       # github repository에서 checkout
       - name: checkout
@@ -70,13 +72,6 @@ jobs:
           tags: ${{ env.DOCKER_NGINX_IMAGE }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-  set-runner-label:
-    name: Set Runner Label
-    runs-on: ubuntu-latest
-    outputs:
-      label: ${{ steps.set-label.outputs.label }}
-    steps:
       - id: set-label
         run: |
           if [ "${{ github.base_ref }}" == "main" ]; then
@@ -87,9 +82,9 @@ jobs:
         shell: bash
 
   deploy:
-    needs: [build, set-runner-label]
+    needs: build
     name: Deploy docker image
-    runs-on: ${{ needs.set-runner-label.outputs.label }}
+    runs-on: ${{ needs.build.outputs.label }}
     steps:
       # github repository에서 checkout
       - name: checkout
