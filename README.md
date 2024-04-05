@@ -40,7 +40,34 @@ We use chatbots to provide career counseling to students, recommend jobs they pr
 
 
 # 4. 사용법
+## 서비스 사용
+**서비스 접속 도메인** => http://capstone.sung4854.com:8501/
+*사이트 접속 시 기존 챗봇 사용과 동일하게 사용하시면 됩니다*
+*추 후 자세한 사용 사진과 설명 추가 예정*
+
+## 서비스 구축
+### Ubuntu 환경
+#### Docker Install
+```
+sudo apt-get update
+sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo systemctl status docker
+```
+
+#### Docker compose Install
+**버전의 경우 아래 사이트 접속하여 최신 버전으로 설치하시면 됩니다**\
+*https://github.com/docker/compose/releases*
+```
+sudo curl -L https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+```
 추 후 작성 예정
+
 # 5. 기타
 
 ## 중간발표자료
