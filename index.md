@@ -1,6 +1,10 @@
 # 1. 프로잭트 소개
+
 ### 학생의 진로 상담해주는 ai 모델 서비스
 챗봇을 활용하여 학생들의 진로 상담을 진행하고, 상담을 통해 수집한 데이터를 기반으로 학생에게 적합한 직업을 추천해주며, 해당 직업의 현재 수요, 전망, 준비 과정 등 보다 구체적인 데이터를 제공함으로서 진로 상담을 진행하는 서비스 입니다.
+
+### Abstract
+We use chatbots to provide career counseling to students, recommend jobs they prefer based on data collected through counseling, and provide career counseling to obtain data on the current demand, views, and treatment process of the job. This is an ongoing service.
 
 ## ⚙ 기술 스택
 ### 🖥 Front-End
@@ -17,10 +21,13 @@
 ### 🖥 협업
 <img alt="Html" src ="https://img.shields.io/badge/github-181717.svg?&style=for-the-badge&logo=github&logoColor=white"/><img alt="Html" src ="https://img.shields.io/badge/Notion-000000.svg?&style=for-the-badge&logo=Notion&logoColor=white"/><img alt="Html" src ="https://img.shields.io/badge/Slack-4A154B.svg?&style=for-the-badge&logo=Slack&logoColor=white"/>
 
+## 서비스 구조
+![image](https://github.com/kookmin-sw/capstone-2024-09/assets/61531215/5774b6c3-1388-4bea-8201-a06a7dc487c1)
+
 
 # 2. 소개 영상
 
-프로젝트 소개하는 영상을 추가하세요
+영상 추가 예정
 
 # 3. 👩‍👩‍👧‍👧 팀 소개
 
@@ -32,8 +39,6 @@
 
 # 4. 사용법
 
-소스코드제출시 설치법이나 사용법을 작성하세요.
-
 # 5. 기타
-
-추가적인 내용은 자유롭게 작성하세요.
+## 데이터 사용 출처
+https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=data&dataSetSn=71618
