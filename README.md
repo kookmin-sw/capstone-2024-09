@@ -1,15 +1,12 @@
-## 팀소개 및 페이지를 꾸며주세요.
-
-- 프로젝트 소개
-  - 프로젝트 설치방법 및 데모, 사용방법, 프리뷰등을 readme.md에 작성.
-  - Api나 사용방법등 내용이 많을경우 wiki에 꾸미고 링크 추가.
-
 # 1. 프로잭트 소개
 
 **팀페이지 주소** -> https://kookmin-sw.github.io/capstone-2024-09
 
 ### 학생의 진로 상담해주는 ai 모델 서비스
 챗봇을 활용하여 학생들의 진로 상담을 진행하고, 상담을 통해 수집한 데이터를 기반으로 학생에게 적합한 직업을 추천해주며, 해당 직업의 현재 수요, 전망, 준비 과정 등 보다 구체적인 데이터를 제공함으로서 진로 상담을 진행하는 서비스 입니다.
+
+### Abstract
+We use chatbots to provide career counseling to students, recommend jobs they prefer based on data collected through counseling, and provide career counseling to obtain data on the current demand, views, and treatment process of the job. This is an ongoing service.
 
 ## ⚙ 기술 스택
 ### 🖥 Front-End
