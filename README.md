@@ -40,7 +40,7 @@ We use chatbots to provide career counseling to students, recommend jobs they pr
 
 
 # 4. 사용법
-
+추 후 작성 예정
 # 5. 기타
 
 ## 중간발표자료
