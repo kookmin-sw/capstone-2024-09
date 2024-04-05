@@ -46,4 +46,5 @@
 
 # 5. 기타
 
-추가적인 내용은 자유롭게 작성하세요.
+## 중간발표자료
+https://drive.google.com/drive/folders/1T09Pt0a32KGpKNjoF0JSmD79XqslpZvq?usp=sharing
