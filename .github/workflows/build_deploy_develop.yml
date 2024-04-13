@@ -8,10 +8,9 @@ on:
 
 #환경설정
 env:
-  DOCKER_APP_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-streamlit_develop
+  DOCKER_REACT_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-react_develop
   DOCKER_NGINX_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx_develop
   WORKING_DIR: /home/ubuntu
-  NAME: capstone_streamlit_develop
   REGISTRY: ghcr.io
 
 jobs:
@@ -39,14 +38,14 @@ jobs:
       # push and docker layer cache 저장하기
 
       # Streamlit app image build and push
-      - name: Build app image and push
-        id: docker_build_app
+      - name: Build react image and push
+        id: docker_build_react
         uses: docker/build-push-action@v5
         with:
-          file: ./capstone_design/app/Dockerfile
+          file: ./capstone_design/react/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ env.DOCKER_APP_IMAGE }}:latest
+          tags: ${{ env.DOCKER_REACT_IMAGE }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -89,8 +88,8 @@ jobs:
       # docker run
       - name: Docker run
         run: |
-          docker stop streamlit_app && docker stop proxy_nginx \
-          docker rmi -f ${{ env.DOCKER_APP_IMAGE }}:latest && docker rmi -f ${{ env.DOCKER_NGINX_IMAGE }}
-          docker pull ${{ env.DOCKER_APP_IMAGE }}:latest && docker pull ${{ env.DOCKER_NGINX_IMAGE }}:latest
+          docker stop react_app && docker stop proxy_nginx \
+          docker rmi -f ${{ env.DOCKER_REACT_IMAGE }}:latest && docker rmi -f ${{ env.DOCKER_NGINX_IMAGE }}
+          docker pull ${{ env.DOCKER_REACT_IMAGE }}:latest && docker pull ${{ env.DOCKER_NGINX_IMAGE }}:latest
           cd /home/ubuntu
           docker-compose up --build -d
