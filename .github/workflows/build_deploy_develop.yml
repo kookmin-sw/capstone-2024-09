@@ -10,8 +10,6 @@ on:
 env:
   DOCKER_APP_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-streamlit_develop
   DOCKER_NGINX_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx_develop
-  WORKING_DIR: /home/ubuntu
-  NAME: capstone_streamlit_develop
   REGISTRY: ghcr.io
 
 jobs:
@@ -93,4 +91,4 @@ jobs:
           docker rmi -f ${{ env.DOCKER_APP_IMAGE }}:latest && docker rmi -f ${{ env.DOCKER_NGINX_IMAGE }}
           docker pull ${{ env.DOCKER_APP_IMAGE }}:latest && docker pull ${{ env.DOCKER_NGINX_IMAGE }}:latest
           cd /home/ubuntu
-          docker-compose up --build -d
+          docker-compose up --build -d --build-arg BRANCH_NAME="_develop"
