@@ -2,20 +2,17 @@ name: build docker image
 
 on:
   push:
-    branches: [main, develop]
+    branches: [develop]
   pull_request:
-    branches: [main, develop]
+    branches: [develop]
 
 #환경설정
 env:
-  DOCKER_REACT_APP_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-streamlit
-  DOCKER_NGINX_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx
-  WORKING_DIR: /home/iscmyoo
-  SCP_AUTH_OPTION: ${{ secrets.SERVER_PASSWORD }}
-  VERSION: ${{ github.sha }}
+  DOCKER_APP_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-streamlit_develop
+  DOCKER_NGINX_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx_develop
+  WORKING_DIR: /home/ubuntu
   NAME: capstone_streamlit_develop
   REGISTRY: ghcr.io
-  DEPLOY_LABEL_TAG: label-go
 
 jobs:
   build:
@@ -24,21 +21,10 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10.10"]
-    outputs:
-      label: ${{ steps.set-label.outputs.label }}
     steps:
       # github repository에서 checkout
       - name: checkout
         uses: actions/checkout@v4
-
-      - name: Set Environment on develop
-        if: github.ref == 'refs/heads/develop'
-        run: |
-          echo "DOCKER_APP_IMAGE=${{ env.DOCKER_APP_IMAGE }}_develop" >> $GITHUB_OUTPUT
-          echo "DOCKER_NGINX_IMAGE=${{ env.DOCKER_NGINX_IMAGE }}_develop" >> $GITHUB_OUTPUT
-          echo "DEPLOY_LABEL_TAG=label-test" >> $GITHUB_OUTPUT
-          echo "WORKING_DIR=/home/ubuntu" >> $GITHUB_OUTPUT
-          echo "SCP_AUTH_OPTION=${{ secrets.KEY }}" >> $GITHUB_OUTPUT
 
       # docker를 사용하기 위한 기본 세팅
       - name: Set up Docker buildx
@@ -74,21 +60,11 @@ jobs:
           tags: ${{ env.DOCKER_NGINX_IMAGE }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      - id: set-label
-        run: |
-          if [ "${{ github.base_ref }}" == "main" ]; then
-            echo "label=self-hosted, label-go" >> $GITHUB_OUTPUT
-            echo "label=self-hosted, label-go"
-          elif [ "${{ github.base_ref }}" == "develop" ]; then
-            echo "label=self-hosted, label-test" >> $GITHUB_OUTPUT
-            echo "label=self-hosted, label-test"
-          fi
-        shell: bash
 
   deploy:
     needs: build
     name: Deploy docker image
-    runs-on: ${{ needs.build.outputs.label }}
+    runs-on: [self-hosted, label-test]
     steps:
       # github repository에서 checkout
       - name: checkout
@@ -99,10 +75,10 @@ jobs:
         with:
           host: ${{ secrets.DEVELOP_HOST }}
           username: ${{ secrets.DEVELOP_USER }}
-          key: ${{ env.SCP_AUTH_OPTION }}
+          key: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.PORT }}
           source: './docker-compose.yml'
-          target: ${{ env.WORKING_DIR }}
+          target: '/home/ubuntu'
       # ghcr 로그인
       - name: Login to ghcr
         uses: docker/login-action@v3
@@ -116,5 +92,5 @@ jobs:
           docker stop streamlit_app && docker stop proxy_nginx \
           docker rmi -f ${{ env.DOCKER_APP_IMAGE }}:latest && docker rmi -f ${{ env.DOCKER_NGINX_IMAGE }}
           docker pull ${{ env.DOCKER_APP_IMAGE }}:latest && docker pull ${{ env.DOCKER_NGINX_IMAGE }}:latest
-          cd ${{ env.WORKING_DIR }}
+          cd /home/ubuntu
           docker-compose up --build -d
