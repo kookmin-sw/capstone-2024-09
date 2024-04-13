@@ -3,15 +3,15 @@ services:
   react_app:
     container_name: react_app
     restart: always
-    image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-streamlit${BRANCH_NAME}
+    image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-react${BRANCH_NAME}
     ports:
       - "3000:3000"
 
   nginx:
     container_name: proxy_nginx
     restart: always
-    image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx_develop
+    image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx${BRANCH_NAME}
     ports:
       - "8080:8080"
     depends_on:
-      - app
+      - react_app
