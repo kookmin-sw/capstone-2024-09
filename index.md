@@ -1,7 +1,5 @@
 # 1. 프로잭트 소개
 
-**팀페이지 주소** -> https://kookmin-sw.github.io/capstone-2024-09
-
 ### 학생의 진로 상담해주는 ai 모델 서비스
 챗봇을 활용하여 학생들의 진로 상담을 진행하고, 상담을 통해 수집한 데이터를 기반으로 학생에게 적합한 직업을 추천해주며, 해당 직업의 현재 수요, 전망, 준비 과정 등 보다 구체적인 데이터를 제공함으로서 진로 상담을 진행하는 서비스 입니다.
 
@@ -40,35 +38,7 @@ We use chatbots to provide career counseling to students, recommend jobs they pr
 
 
 # 4. 사용법
-## 서비스 사용
-**서비스 접속 도메인** => http://capstone.sung4854.com:8501/
-*사이트 접속 시 기존 챗봇 사용과 동일하게 사용하시면 됩니다*
-*추 후 자세한 사용 사진과 설명 추가 예정*
-
-## 서비스 구축
-### Ubuntu 환경
-#### Docker Install
-```
-sudo apt-get update
-sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io
-sudo systemctl status docker
-```
-
-#### Docker compose Install
-**버전의 경우 아래 사이트 접속하여 최신 버전으로 설치하시면 됩니다**\
-*https://github.com/docker/compose/releases*
-```
-sudo curl -L https://github.com/docker/compose/releases/download/v2.5.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-docker-compose --version
-```
-추 후 작성 예정
 
 # 5. 기타
-
-## 중간발표자료
-https://drive.google.com/drive/folders/1T09Pt0a32KGpKNjoF0JSmD79XqslpZvq?usp=sharing
+## 데이터 사용 출처
+https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=data&dataSetSn=71618
