@@ -90,4 +90,4 @@ jobs:
           docker rmi -f ${{ env.DOCKER_REACT_IMAGE }}:latest && docker rmi -f ${{ env.DOCKER_NGINX_IMAGE }}
           docker pull ${{ env.DOCKER_REACT_IMAGE }}:latest && docker pull ${{ env.DOCKER_NGINX_IMAGE }}:latest
           cd /home/iscmyoo/
-          docker-compose up --build -d
+          docker-compose -f docker-compose.yml --env-file .env up --build -d
