@@ -5,4 +5,4 @@ COPY ./capstone_design/react_app ./
 RUN npm install
 EXPOSE 3000
 
-ENTRYPOINT ["serve", "-s", "build"]
+ENTRYPOINT ["npm", "run", "start"]
