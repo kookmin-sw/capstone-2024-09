@@ -91,4 +91,4 @@ jobs:
           docker rmi -f ${{ env.DOCKER_APP_IMAGE }}:latest && docker rmi -f ${{ env.DOCKER_NGINX_IMAGE }}
           docker pull ${{ env.DOCKER_APP_IMAGE }}:latest && docker pull ${{ env.DOCKER_NGINX_IMAGE }}:latest
           cd /home/ubuntu
-          docker-compose -f docker-compose.yml --env-file .env up
+          docker-compose -f docker-compose.yml --env-file .env up --build -d
