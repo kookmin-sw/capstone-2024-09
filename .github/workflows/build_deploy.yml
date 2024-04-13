@@ -8,7 +8,8 @@ on:
 
 #환경설정
 env:
-  DOCKER_APP_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-streamlit
+
+  DOCKER_REACT_APP_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-streamlit
   DOCKER_NGINX_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx
   WORKING_DIR: /home/iscmyoo
   SCP_AUTH_OPTION: ${{ secrets.SERVER_PASSWORD }}
@@ -31,7 +32,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Set Environment
         run: |
+          echo "Set Environment"
           if [ "${{ github.base_ref }}" == "develop" ]; then
+            echo "branch is develop"
             echo "DOCKER_APP_IMAGE=${{ env.DOCKER_APP_IMAGE }}_develop" >> $GITHUB_ENV
             echo "DOCKER_NGINX_IMAGE=${{ env.DOCKER_NGINX_IMAGE }}_develop" >> $GITHUB_ENV
             echo "DEPLOY_LABEL_TAG=label-test" >> $GITHUB_ENV
