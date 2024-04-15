@@ -3,7 +3,7 @@ services:
   app:
     container_name: streamlit_app
     restart: always
-    image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-streamlit
+    image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-streamlit${BRANCH_NAME}
     ports:
       - "8501:8501"
     environment:
@@ -15,7 +15,7 @@ services:
   nginx:
     container_name: proxy_nginx
     restart: always
-    image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx
+    image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx${BRANCH_NAME}
     ports:
       - "8080:8080"
     depends_on:
