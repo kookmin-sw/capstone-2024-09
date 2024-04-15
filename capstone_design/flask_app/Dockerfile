@@ -4,7 +4,7 @@ WORKDIR /Final_Project
 COPY . ./
 RUN pip3 install --upgrade pip
 RUN pip3 install -r ./capstone_design/flask_app/etc/requirement.txt
-RUN chmod +x ./app/app.py
+RUN chmod +x ./capstone_design/flask_app/app/app.py
 EXPOSE 5000
 
-CMD ["python3", "./app/app.py"]
+CMD ["python3", "./capstone_design/flask_app/app/app.py"]
