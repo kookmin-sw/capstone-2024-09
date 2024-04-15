@@ -8,7 +8,7 @@ on:
 
 #환경설정
 env:
-  DOCKER_APP_IMAGE: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-streamlit # ghcr(git package) 사용
+  DOCKER_APP_IMAGE: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-react # ghcr(git package) 사용
   DOCKER_NGINX_IMAGE: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-nginx
   REGISTRY: ghcr.io
 
@@ -36,14 +36,14 @@ jobs:
       # push and docker layer cache 저장하기
 
       # Streamlit app image build and push
-      - name: Build app image and push
-        id: docker_build_app
+      - name: Build react image and push
+        id: docker_build_react
         uses: docker/build-push-action@v5
         with:
-          file: ./capstone_design/app/Dockerfile
+          file: ./capstone_design/react_app/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ${{ env.DOCKER_APP_IMAGE }}:latest
+          tags: ${{ env.DOCKER_REACT_IMAGE }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -86,8 +86,8 @@ jobs:
       # docker run
       - name: Docker run
         run: |
-          docker stop streamlit_app && docker stop proxy_nginx \
-          docker rmi -f ${{ env.DOCKER_APP_IMAGE }}:latest && docker rmi -f ${{ env.DOCKER_NGINX_IMAGE }}
-          docker pull ${{ env.DOCKER_APP_IMAGE }}:latest && docker pull ${{ env.DOCKER_NGINX_IMAGE }}:latest
+          docker stop react_app && docker stop proxy_nginx \
+          docker rmi -f ${{ env.DOCKER_REACT_IMAGE }}:latest && docker rmi -f ${{ env.DOCKER_NGINX_IMAGE }}
+          docker pull ${{ env.DOCKER_REACT_IMAGE }}:latest && docker pull ${{ env.DOCKER_NGINX_IMAGE }}:latest
           cd /home/iscmyoo/
           docker-compose -f docker-compose.yml --env-file .env up --build -d
