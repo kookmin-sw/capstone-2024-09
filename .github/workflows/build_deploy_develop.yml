@@ -8,6 +8,7 @@ on:
 
 #환경설정
 env:
+  DOCKER_flask_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-flask_develop
   DOCKER_REACT_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-react_develop
   DOCKER_NGINX_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx_develop
   REGISTRY: ghcr.io
@@ -36,7 +37,19 @@ jobs:
           password: ${{ secrets.GIT_CI_CD_TOKEN }}
       # push and docker layer cache 저장하기
 
-      # Streamlit app image build and push
+      # flask app image build and push
+      - name: Build flask image and push
+        id: docker_build_flask
+        uses: docker/build-push-action@v5
+        with:
+          file: ./capstone_design/flask_app/Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: ${{ env.DOCKER_flask_IMAGE }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # react app image build and push
       - name: Build react image and push
         id: docker_build_react
         uses: docker/build-push-action@v5
@@ -48,6 +61,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      # nginx app image build and push
       - name: Build nginx image and push
         id: docker_build_nginx
         uses: docker/build-push-action@v5
