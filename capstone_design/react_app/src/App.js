@@ -2,19 +2,14 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 
 function App() {
-  const [data, setData] = useState([{}])
-
-  useEffect(() => {
-    fetch("/users").then(
-        res => res.json()
-    ).then(
-        data => {
-          setData(data)
-          console.log(data)
-        }
-    )
-  }, [])
-  return (
+    const [data] = useState([{}])
+    // React 컴포넌트
+    useEffect(() => {
+        fetch('/api/data')
+            .then(response => response.json())
+            .then(data => console.log(data));
+    }, []);
+    return (
       <div>
         {(typeof data.members === 'undefined') ? (
             <p>Loading ... </p>
@@ -24,7 +19,7 @@ function App() {
             ))
         )}
       </div>
-  );
+    );
 }
 
 export default App;

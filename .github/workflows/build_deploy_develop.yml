@@ -9,6 +9,7 @@ on:
 #환경설정
 env:
   DOCKER_flask_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-flask_develop
+  DOCKER_express_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-express_develop
   DOCKER_REACT_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-react_develop
   DOCKER_NGINX_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx_develop
   REGISTRY: ghcr.io
@@ -46,6 +47,18 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ env.DOCKER_flask_IMAGE }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # express app image build and push
+      - name: Build express image and push
+        id: docker_build_express
+        uses: docker/build-push-action@v5
+        with:
+          file: ./capstone_design/express_app/Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: ${{ env.DOCKER_express_IMAGE }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

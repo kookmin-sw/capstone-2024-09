@@ -47,6 +47,18 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      # express app image build and push
+      - name: Build express image and push
+        id: docker_build_express
+        uses: docker/build-push-action@v5
+        with:
+          file: ./capstone_design/express_app/Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: ${{ env.DOCKER_express_IMAGE }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
       # react app image build and push
       - name: Build react image and push
         id: docker_build_react
