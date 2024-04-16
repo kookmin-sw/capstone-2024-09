@@ -9,15 +9,15 @@
 ### 1) 모델 별 성능 평가
 - 이 파일에서는 분류형 ai로 머신러닝(1,2,3,4) 및 딥러닝 모델(5,6,7)들을 구축하여 성능을 평가하였다. 구축한 모델들은 아래와 같다.
   
-##### (1) 다중 클래스 나이브 베이즈 (Multinomial Naive Bayes)
+##### (1) 다중 클래스 나이브 베이즈 (MultinomialNB)
 
-##### (2) 다중 클래스 로지스틱 회귀 (Multinomial Logistic Regression)
+##### (2) 다중 클래스 로지스틱 회귀 ((Multinomial)Logistic Regression)
 
-##### (3) 다중 클래스 서포트 벡터 머신 (Multiclass SVM)
+##### (3) 다중 클래스 서포트 벡터 머신 분류기(SVC)
 
 ##### (4) 랜덤 포레스트 분류기 (Random Forest Classifier)
 
-##### (5) 다층 퍼셉트론 (Multilayer Perceptron (MLP))
+##### (5) 다층 퍼셉트론 (MLP Classifier)
 
 ##### (6) CNN(Convolution Neural Network)
 
@@ -26,7 +26,7 @@
 
 ### 2) 성능 평가 결과
 ![분류형 ai 모델 성능 비교](https://github.com/kookmin-sw/capstone-2024-09/assets/29187870/9bf6310e-1cb5-46aa-aadd-6738ba1c73e2)
-- 다층 퍼셉트론의 정확도가 약 69%로, 가장 높게 나왔다. 따라서 분류형 ai 모델로 다층 퍼셉트론 모델을 채택하기로 하였다.
+- 다층 퍼셉트론(MLP Classifier)의 정확도가 약 69%로, 가장 높게 나왔다. 따라서 분류형 ai 모델로 다층 퍼셉트론 모델을 채택하기로 하였다.
 
 ### 3) 작업한 주피터 노트북 파일의 원본 링크
 - https://colab.research.google.com/drive/1-dhdeV4x4o7kpVwRuo6MoHCHoM4Ry_S1?usp=sharing
