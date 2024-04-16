@@ -4,7 +4,7 @@
 1. preprocessing_data_for_recommending_ai.ipynb에 대한 소개
 
 1) 모델 별 성능 평가
-- 이 파일에서는 분류형 ai로 머신러닝(1~4) 및 딥러닝 모델(5~7)들을 구축하여 성능을 평가하였다. 구축한 모델들은 아래와 같다. 
+- 이 파일에서는 분류형 ai로 머신러닝(1,2,3,4) 및 딥러닝 모델(5,6,7)들을 구축하여 성능을 평가하였다. 구축한 모델들은 아래와 같다. 
 (1) 다중 클래스 나이브 베이즈 (Multinomial Naive Bayes)
 (2) 다중 클래스 로지스틱 회귀 (Multinomial Logistic Regression)
 (3) 다중 클래스 서포트 벡터 머신 (Multiclass SVM)
