@@ -59,3 +59,46 @@
  
 ### 2) 작업한 주피터 노트북 파일의 원본 링크
 - https://colab.research.google.com/drive/13et3P_uYkmwEZY-iTX7vqK82KeHVPM2V?usp=sharing
+
+
+
+## 4. 분류형 ai의 사용법
+```python
+import joblib
+
+# 저장된 모델 불러오기
+mlp_model = joblib.load('mlp_model.joblib')
+
+# 파이썬 한국어 처리 패키지 설치
+!pip install konlpy
+
+# 문장들을 단어로 쪼갤 형태소 분석 라이브러리 불러오기
+from konlpy.tag import Okt
+okt = Okt()
+
+# 상담에서 등장한 문장(conversation_X)을 명사 단위로 쪼갠 문자열로 변환해 저장할 리스트 생성
+conversation_X = []
+
+# 챗봇과 이용자(학생)간의 대화 내용인 data 변수내의 문장을 sentence 변수에 저장하는 작업
+sentence = data
+
+# sentence 변수에 저장된 문장을 단어로 쪼개서 단어 별로 띄어쓰기해서 저장(나중에 문서 벡터를 만들때 띄어쓰기 단위로 벡터의 요소를 형성하기 때문에)
+conversation_X.append(" ".join(okt.nouns(sentence)))
+
+
+from sklearn.feature_extraction.text import TfidfVectorizer # 문장을 문서벡터로 변환시켜줄 TfidfVectorizer 라이브러리 불러오기
+import numpy as np  # 데이터를 array로 변환시키기 위해 numpy 라이브러리 불러오기
+
+
+# 학생과 상담사 간의 대화들을 문서벡터로 변환하기 위해 TF-IDF 벡터화를 수행
+vectorizer = TfidfVectorizer()
+X_tfidf = vectorizer.fit_transform(conversation_X).toarray()
+
+
+
+# 모델에 문서벡터 넘겨주고 추천 직업 번호 반환받기
+# 반환되는 값 : 0~42 (=integer 타입의 값)
+predictions = mlp_model.predict(X_tfidf)
+
+
+# 이후 predictions에 저장된 추천 직업 번호에 따라 db에 접근해서 해당 직업 정보를 가져오면 됨.
