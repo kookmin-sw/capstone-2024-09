@@ -43,7 +43,7 @@
 - 테스트 결과, 다층 퍼셉트론의 hidden layer를 쌓을 수록 예측 성능이 떨어지는 것을 확인할 수 있었다.(반환해야 할 직업 번호를 반환하지 못함)
 - 가장 예측 성능이 높은 하이퍼 파라미터 조합은 hidden layer를 1개만 쌓고 그 층의 노드 수는 100개로, 활성화 함수는 'relu'를,
   early_stopping 옵션(학습 중 검증용 데이터에 대한 성능이 떨어지는 것을 확인하면 학습을 조기 중단하는 기능)을 켜주는 것이었다.
-  이는 scikit-learn에서 불러온 다층 퍼셉트론 모델의 default 하이퍼 파라미터 값의 조합이었는데, 이 조합이 약 69%로 가장 높은 예측 성능을 보여주었다.
+  이는 scikit-learn에서 불러온 다층 퍼셉트론 모델의 default 하이퍼 파라미터 값의 조합이었는데, 이 조합이 약 69.4%로 가장 높은 예측 성능을 보여주었다.
 
 ### 3) 작업한 주피터 노트북 파일의 원본 링크
 - https://colab.research.google.com/drive/1kzWfUBhKGQ-CtXYfLkL6tbSfrErkQurf?usp=sharing
