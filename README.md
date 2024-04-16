@@ -24,7 +24,7 @@
 
 
 ### 2) 성능 평가 결과
-<img src="/home/yeong/다운로드/분류형 ai 모델 성능 비교.png" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="<img src="분류형 ai 모델 성능 비교.png" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br/>"></img><br/>
+<img src="/home/yeong/다운로드/분류형 ai 모델 성능 비교.png" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="<img src="분류형 ai 모델 성능 비교.png" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="분류형 ai 모델 성능 비교"></img><br/>"></img><br/>
 - 다층 퍼셉트론의 정확도가 약 69%로, 가장 높게 나왔다. 따라서 분류형 ai 모델로 다층 퍼셉트론 모델을 채택하기로 하였다.
 
 ### 3) 작업한 주피터 노트북 파일의 원본 링크
@@ -38,7 +38,7 @@
 - 이 파일에서는 공식 분류형 ai 모델로 채택된 다층 퍼셉트론 모델의 분류 성능을 높이고자 다층 퍼셉트론 모델의 하이퍼 파라미터 값을 바꿔가며 성능을 테스트해보았다.
 
 ### 2) 성능 평가 결과
-<img src="/home/yeong/다운로드/mlp성능비교시각화.png" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="<img src="분류형 ai 모델 성능 비교.png" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="mlp성능비교시각화"></img><br/>"></img><br/>
+<img src="/home/yeong/다운로드/mlp성능비교시각화.png" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="<img src="mlp성능비교시각화.png" width="450px" height="300px" title="px(픽셀) 크기 설정" alt="mlp성능비교시각화"></img><br/>"></img><br/>
 - 테스트 결과, 다층 퍼셉트론의 hidden layer를 쌓을 수록 예측 성능이 떨어지는 것을 확인할 수 있었다. (반환해야 할 직업 번호를 반환하지 못함).
 - 가장 예측 성능이 높은 하이퍼 파라미터 조합은 hidden layer를 1개만 쌓고 그 층의 노드 수는 100개로, 활성화 함수는 'relu'를,
   학습 중 검증용 데이터에 대한 성능이 떨어지는 것을 확인하면 조기에 학습을 중단하는 early_stopping 옵션을 켜주는 것이었다.
