@@ -13,6 +13,8 @@ services:
     image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-express${BRANCH_NAME}
     ports:
       - "3001:3001"
+    depends_on:
+      - flask_app
 
   react_app:
     container_name: react_app
@@ -21,7 +23,7 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - flask_app
+      - express_app
 
   nginx:
     container_name: proxy_nginx
