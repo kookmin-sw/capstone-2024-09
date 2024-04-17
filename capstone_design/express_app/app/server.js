@@ -9,8 +9,12 @@ app.use(express.static('build'));
 app.use(cors({ credentials: true, origin: "develop.sung4854.com:3000" }));
 
 app.get('/api/data', async (req, res) => {
-    console.log("hello from express");
-    res.json({ express: 'Hello From Express' });
+    try {
+        const response = await axios.get('http://localhost:5000/api/data');
+        res.json(response.data);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch data' });
+    }
 });
 
 app.listen(port, () => {
