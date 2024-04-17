@@ -9,8 +9,6 @@ app.use(express.static('build'));
 app.use(cors({ credentials: true, origin: "develop.sung4854.com:3000" }));
 
 app.get('/api/data', async (req, res) => {
-    const response = await axios.get('http://flask_app:5000/api/data');
-    console.log(response);
     try {
         const response = await axios.get('http://flask_app:5000/api/data');
         res.json(response.data);
