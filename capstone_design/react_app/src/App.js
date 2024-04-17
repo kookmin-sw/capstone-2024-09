@@ -15,18 +15,18 @@ function App() {
                 console.error('Error fetching data:', error);
             }
         };
+
         fetchData();
     }, []);
+
     return (
-      <div>
-        {(typeof data.members === 'undefined') ? (
-            <p>Loading ... </p>
-        ) : (
-            data.members.map((member, i) => (
-                <p key={i}>{member}</p>
-            ))
-        )}
-      </div>
+        <div>
+            {data ? (
+                <p>Data from Express: {data.data}</p>
+            ) : (
+                <p>Loading...</p>
+            )}
+        </div>
     );
 }
 
