@@ -1,24 +1,14 @@
 const express = require('express');
-const cors = require('cors');
+const bodyParser = require('body-parser');
 const app = express();
 const port = 3001;
-const axios = require('axios');
 
 // React 프런트엔드 빌드 결과물 서빙
-app.use(express.static('build'));
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }))
 
-app.get('/api/data', async (req, res) => {
-    console.log("hello from express");
-    res.json({ express: 'Hello From Express' });
-    // const response = await axios.get('http://localhost:5000/api/data');
-    // res.json(response.data);
-    // try {
-    //     const response = await axios.get('http://localhost:5000/api/data');
-    //     res.json(response.data);
-    // } catch (error) {
-    //     res.status(500).json({ error: 'Failed to fetch data' });
-    // }
+app.get('/api/hello', (req, res) => {
+    res.send({ express: 'Hello From Express' });
 });
 
 app.listen(port, () => {
