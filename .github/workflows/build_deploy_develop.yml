@@ -8,6 +8,8 @@ on:
 
 #환경설정
 env:
+  DOCKER_FLASK_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-flask_develop
+  DOCKER_EXPRESS_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-express_develop
   DOCKER_REACT_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-react_develop
   DOCKER_NGINX_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx_develop
   REGISTRY: ghcr.io
@@ -36,7 +38,31 @@ jobs:
           password: ${{ secrets.GIT_CI_CD_TOKEN }}
       # push and docker layer cache 저장하기
 
-      # Streamlit app image build and push
+      # flask app image build and push
+      - name: Build flask image and push
+        id: docker_build_flask
+        uses: docker/build-push-action@v5
+        with:
+          file: ./capstone_design/flask_app/Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: ${{ env.DOCKER_FLASK_IMAGE }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # express app image build and push
+      - name: Build express image and push
+        id: docker_build_express
+        uses: docker/build-push-action@v5
+        with:
+          file: ./capstone_design/express_app/Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: ${{ env.DOCKER_EXPRESS_IMAGE }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # react app image build and push
       - name: Build react image and push
         id: docker_build_react
         uses: docker/build-push-action@v5
@@ -48,6 +74,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      # nginx app image build and push
       - name: Build nginx image and push
         id: docker_build_nginx
         uses: docker/build-push-action@v5
@@ -87,8 +114,9 @@ jobs:
       # docker run
       - name: Docker run
         run: |
-          docker stop react_app && docker stop proxy_nginx \
-          docker rmi -f ${{ env.DOCKER_REACT_IMAGE }}:latest && docker rmi -f ${{ env.DOCKER_NGINX_IMAGE }}
+          docker stop flask_app && docker stop express_app && docker stop react_app && docker stop proxy_nginx
+          docker rmi -f $(docker images -q)
+          docker pull ${{ env.DOCKER_FLASK_IMAGE }}:latest && docker pull ${{ env.DOCKER_EXPRESS_IMAGE }}:latest
           docker pull ${{ env.DOCKER_REACT_IMAGE }}:latest && docker pull ${{ env.DOCKER_NGINX_IMAGE }}:latest
           cd /home/ubuntu
           docker-compose -f docker-compose.yml --env-file .env up --build -d
