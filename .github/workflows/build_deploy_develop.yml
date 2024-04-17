@@ -114,9 +114,8 @@ jobs:
       # docker run
       - name: Docker run
         run: |
-          docker stop flask_app && stop express_app && stop react_app && docker stop proxy_nginx \
-          docker rmi -f ${{ env.DOCKER_FLASK_IMAGE }}:latest && docker rmi -f ${{ env.DOCKER_EXPRESS_IMAGE }}:latest
-          docker rmi -f ${{ env.DOCKER_REACT_IMAGE }}:latest && docker rmi -f ${{ env.DOCKER_NGINX_IMAGE }}:latest
+          docker stop flask_app && docker stop express_app && docker stop react_app && docker stop proxy_nginx
+          docker rmi -f $(docker images -q)
           docker pull ${{ env.DOCKER_FLASK_IMAGE }}:latest && docker pull ${{ env.DOCKER_EXPRESS_IMAGE }}:latest
           docker pull ${{ env.DOCKER_REACT_IMAGE }}:latest && docker pull ${{ env.DOCKER_NGINX_IMAGE }}:latest
           cd /home/ubuntu
