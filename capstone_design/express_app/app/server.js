@@ -9,6 +9,9 @@ app.use(express.static('build'));
 app.use(cors({ credentials: true, origin: "develop.sung4854.com:3000" }));
 
 app.get('/api/data', async (req, res) => {
+    const response = await axios.get('http://localhost:5000/api/data');
+    console.log(response);
+    res.json(response.data);
     try {
         const response = await axios.get('http://localhost:5000/api/data');
         res.json(response.data);
