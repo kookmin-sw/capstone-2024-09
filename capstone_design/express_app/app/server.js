@@ -6,7 +6,7 @@ const axios = require('axios');
 
 // React 프런트엔드 빌드 결과물 서빙
 app.use(express.static('build'));
-app.use(cors());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 
 app.get('/api/data', async (req, res) => {
     console.log("hello from express");
