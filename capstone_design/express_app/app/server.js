@@ -1,12 +1,7 @@
 const express = require('express');
 const app = express();
-const cors = require('cors');
 const port = 3001;
 const axios = require('axios');
-
-app.use(cors({
-    origin: 'http://localhost:3000' // React 앱의 URL
-}));
 
 // React 프런트엔드 빌드 결과물 서빙
 app.use(express.static('build'));
