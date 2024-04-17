@@ -9,6 +9,7 @@ app.use(express.static('build'));
 app.use(cors());
 
 app.get('/api/data', async (req, res) => {
+    console.log("hello from express");
     res.json({ express: 'Hello From Express' });
     // const response = await axios.get('http://localhost:5000/api/data');
     // res.json(response.data);
