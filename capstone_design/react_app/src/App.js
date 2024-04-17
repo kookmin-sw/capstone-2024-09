@@ -2,12 +2,20 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 
 function App() {
-    const [data] = useState([{}])
-    // React 컴포넌트
+    const [data, setData] = useState(null);
+
     useEffect(() => {
-        fetch('/api/data')
-            .then(response => response.json())
-            .then(data => console.log(data));
+        const fetchData = async () => {
+            try {
+                const response = await fetch('/api/data');
+                const data = await response.json();
+                setData(data);
+                console.log(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchData();
     }, []);
     return (
       <div>
