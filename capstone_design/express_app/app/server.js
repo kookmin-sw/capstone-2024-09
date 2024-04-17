@@ -7,12 +7,13 @@ const axios = require('axios');
 app.use(express.static('build'));
 
 app.get('/api/data', async (req, res) => {
-    try {
-        const response = await axios.get('http://localhost:5000/api/data');
-        res.json(response.data);
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch data' });
-    }
+    res.send({ express: 'Hello From Express' });
+    // try {
+    //     const response = await axios.get('http://localhost:5000/api/data');
+    //     res.json(response.data);
+    // } catch (error) {
+    //     res.status(500).json({ error: 'Failed to fetch data' });
+    // }
 });
 
 app.listen(port, () => {
