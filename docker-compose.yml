@@ -28,8 +28,11 @@ services:
   nginx:
     container_name: proxy_nginx
     restart: always
-    image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx${BRANCH_NAME}
+    image: nginx:latest
+    volumes:
+      - ./capstone_design/nginx/etc/project.conf:/etc/nginx/conf.d/default.conf
     ports:
       - "8080:8080"
     depends_on:
       - react_app
+      - express_app
