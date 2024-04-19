@@ -8,9 +8,11 @@ const axios = require('axios');
 app.use(express.static('build'));
 app.use(cors({ credentials: true, origin: "http://react_app:3000" }));
 
-app.get('/api/data', async (req, res) => {
+app.get('/api/chat', async (req, res) => {
+    const { messages } = req.body;
+
     try {
-        const response = await axios.get('http://flask_app:5000/api/data');
+        const response = await axios.post('http://flask_app:5000/api/chat', { messages });
         res.json(response.data);
     } catch (error) {
         console.error('Error:', error);
