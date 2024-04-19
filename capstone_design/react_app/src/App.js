@@ -1,28 +1,46 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
-import ChatBot from "./components/Chatbot.js";
+import React, {useState} from "react";
+import axios from "axios";
 
 function App() {
-    const [data, setData] = useState(null);
+    const [messages, setMessages] = useState([]);
+    const [inputMessage, setInputMessage] = useState('');
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('/api/data');
-                const data = await response.json();
-                setData(data);
-                console.log(data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-        fetchData();
-    }, []);
+        console.log('Submitted message:', inputMessage);
 
+        setMessages([...messages, { role: 'user', content: inputMessage }]);
+        setInputMessage('');
+
+        try {
+            const response = await axios.post('/api/chat', { messages: [...messages, { role: 'user', content: inputMessage }] });
+            setMessages([...messages, { role: 'user', content: inputMessage }, { role: 'assistant', content: response.data.result }]);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
     return (
         <div>
-            <ChatBot/>
+            <h1>ChatBot</h1>
+            <div>
+                {messages.map((message, index) => (
+                    <div key={index}>
+                        <strong>{message.role}: </strong>
+                        {message.content}
+                    </div>
+                ))}
+            </div>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    value={inputMessage}
+                    onChange={(e) => setInputMessage(e.target.value)}
+                    placeholder="Type your message..."
+                />
+                <button type="submit">Send</button>
+            </form>
         </div>
     );
 }
