@@ -1,5 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
+import ChatBot from "./components/Chatbot.js";
 
 function App() {
     const [data, setData] = useState(null);
@@ -21,11 +22,7 @@ function App() {
 
     return (
         <div>
-            {data ? (
-                <p>Data from Express: {data.data}</p>
-            ) : (
-                <p>Loading...</p>
-            )}
+            <ChatBot/>
         </div>
     );
 }

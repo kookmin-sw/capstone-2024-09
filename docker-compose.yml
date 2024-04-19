@@ -10,6 +10,8 @@ services:
     image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-flask${BRANCH_NAME}
     ports:
       - "5000:5000"
+    env_file:
+      - .env
     networks:
       - my-app-network
 

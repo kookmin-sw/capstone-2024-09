@@ -13,7 +13,8 @@ app.get('/api/data', async (req, res) => {
         const response = await axios.get('http://flask_app:5000/api/data');
         res.json(response.data);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch data' });
+        console.error('Error:', error);
+        res.status(500).json({ error: 'An error occurred while fetching the response' });
     }
 });
 
