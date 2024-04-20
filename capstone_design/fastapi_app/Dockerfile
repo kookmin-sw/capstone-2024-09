@@ -2,7 +2,7 @@ FROM python:3.10
 
 RUN mkdir -p /Final_Project
 WORKDIR /Final_Project
-COPY . ./
+COPY ./capstone_design/react_app ./
 RUN pip3 install --upgrade pip
 RUN pip3 install -r ./etc/requirement.txt
 
