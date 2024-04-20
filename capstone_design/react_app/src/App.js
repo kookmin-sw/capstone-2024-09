@@ -1,6 +1,5 @@
 import './App.css';
 import React, {useState} from "react";
-import axios from "axios";
 
 function App() {
     const [messages, setMessages] = useState([]);
@@ -8,19 +7,31 @@ function App() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        console.log('Submitted message:', inputMessage);
-
-        setMessages([...messages, { role: 'user', content: inputMessage }]);
+        const newMessage = { role: 'user', content: inputMessage };
+        setMessages([...messages, newMessage]);
         setInputMessage('');
 
         try {
-            const response = await axios.post('/api/chat', { messages: [...messages, { role: 'user', content: inputMessage }] });
-            setMessages([...messages, { role: 'user', content: inputMessage }, { role: 'assistant', content: response.data.result }]);
+            const response = await fetch('http://fastapi_app:5000/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ messages: [...messages, newMessage] }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const assistantMessage = { role: 'assistant', content: data.result };
+                setMessages([...messages, newMessage, assistantMessage]);
+            } else {
+                throw new Error('Network response was not ok');
+            }
         } catch (error) {
             console.error('Error:', error);
         }
     };
+
     return (
         <div>
             <h1>ChatBot</h1>

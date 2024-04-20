@@ -1,14 +1,14 @@
-from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 import os
 from openai import OpenAI
+from fastapi import FastAPI
 
 load_dotenv()
 client = OpenAI()
-app = Flask(__name__)
+app = FastAPI()
 client.key = os.getenv("OPENAI_API_KEY")
 
-def request_openai(message):
+def get_chat_response(message):
     MODEL = "gpt-3.5-turbo"
     system_message = {
         "role": "system",
@@ -16,18 +16,13 @@ def request_openai(message):
     }
     user_message = {"role": "user", "content": message}
     messages = [system_message, user_message]
-
     try:
-        with app.app_context():
-            response = client.chat.completions.create(
-                model=MODEL,
-                messages=messages,
-                temperature=0,
-            )
-
-        result = response.choices[0].message.content
-        return {"result": result}
+        response = client.chat.completions.create(
+            model=MODEL,
+            messages = messages,
+            temperature=0,
+        )
+        return response.choices[0].message.content
     except Exception as e:
         print(e)
         return {"error": "An error occurred while fetching the response"}
-
