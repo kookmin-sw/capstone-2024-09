@@ -7,14 +7,9 @@ from .open_ai import get_chat_response
 router = APIRouter()
 app = FastAPI()
 
-origins = [
-    "http://react_app:3000",  # React 앱의 도메인
-    # 추가적인 도메인들...
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://react_app:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -24,7 +19,7 @@ class ChatRequest(BaseModel):
     messages: list
 
 @app.get("/")
-def read_root():
+def read_root():z
     return {"Hello": "World"}
 
 @app.post("/api/chat")
