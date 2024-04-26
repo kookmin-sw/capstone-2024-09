@@ -6,48 +6,48 @@ const API_URL = "https://api-inference.huggingface.co/models/EleutherAI/polyglot
 const API_TOKEN = "___________________";
 const headers = { "Authorization": `Bearer ${API_TOKEN}` };
 
+
 function ChatApp() {
     // 상태 변수들을 정의
-    const [messages, setMessages] = useState([]); // 모든 메시지를 관리하는 상태 변수 (이전 메시지 기록)
-    const [inputText, setInputText] = useState(''); // 사용자 입력을 관리하는 상태 변수 (생성된 응답 기록)
-    const inputRef = useRef(); // 입력 요소를 참조하기 위한 inputRef 함수 생성
-
+    const [history, setHistory] = useState([]); // 모든 메시지를 관리하는 상태 변수 (이전 메시지 기록)
+    const [inputMessage, setInputMessage] = useState(''); // 사용자 입력을 관리하는 상태 변수 (생성된 응답 기록)
+    const inputRef = useRef(); // 입력 요소를 참조하기 위한 inputRef 함수 생성 (웹페이지가 갱신될 때, 커서가 특정 요소에 자동으로 위치하게 하는 역할)
+    const messageEndRef = useRef();  // 스크롤의 하단을 가리킬 객체 생성
     // 메시지 전송 핸들러 함수 (사용자 입력을 처리하고 API를 호출하는 함수)
     const handleSubmit = async (e) => {
-        e.preventDefault(); // 해당 태그의 기본 동작 방지(화면 새로고침 방지)
-        if (!inputText) return; // 입력이 비어있다면 아무것도 하지 않음
+        e.preventDefault();
+        const newHistory = { role: 'user', content: inputMessage };
+        setHistory([...history, newHistory]);
+        setInputMessage('');
 
         try {
-            // API에 POST 요청을 보내고 응답 수신
-            const response = await fetch(API_URL, {
+            const response = await fetch('http://fastapi_app:5000/api/chat', {
                 method: 'POST',
                 headers: {
-                    headers,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ text: inputText }) // 입력을 JSON 형식으로 변환하여 전송
+                body: JSON.stringify({ messages: [...history] }),    // 지난 대화 내용을 json 타입의 데이터로 변환
             });
 
-            if (!response.ok) { // 응답이 성공적이지 않을 경우 오류 처리
+            if (response.ok) {
+                const data = await response.json();
+                const consultantMessage = { role: 'consultant', content: data.result };
+                setHistory([...history, consultantMessage]);
+
+            } else {
                 throw new Error('Network response was not ok');
             }
-
-            // JSON 형식으로 응답을 파싱
-            const responseData = await response.json();
-            const generatedText = responseData.generated_text;  // 생성형 ai로부터 반환된 응답 텍스트 저장
-
-            // 새로운 메시지를 추가하고 입력 창을 비우는 작업 (상태 변수들을 업데이트)
-            setMessages([messages, { text: inputText, isUser: true }, { text: generatedText, isUser: false }]);  // 사용자의 메시지와 ai로부터 응답받은 메시지를 기록
-            setInputText(''); // 사용자의 입력 메시지를 빈 값으로 초기화
-        } catch (error) { // // 오류가 발생했을 경우 콘솔창에 오류 메시지를 출력
-            console.error('An error occurred:', error);
+        } catch (error) {
+            console.error('Error:', error);
         }
     };
 
-    // 화면이 업데이트될 때마다 입력 요소를 포커스
+    // 화면이 업데이트될 때마다 입력 요소에 포커스 (커서가 특정 요소에 자동으로 위치하게끔 동작)
+    // 화면이 업데이트될 때마다 스크롤이 채팅 박스의 하단에 위치하도록 조작
     useEffect(() => {
         inputRef.current.focus();
-    });
+        messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }, [history]);
 
     // UI를 구성할 태그들을 반환
     return (
@@ -60,37 +60,92 @@ function ChatApp() {
             flexDirection: 'column',
             alignItems: 'center',
         }}>
-            <h1 style={{ textAlign: 'center' }}>🤖 학생 진로 상담 AI 챗봇 (polyglot-ko-1.3B 기반)</h1>
-            <div>
+            <h1 style={{
+                textAlign: 'center',
+                margin: '10px',
+                padding: '10px 30px',
+                border: '1px solid transparent',
+                borderRadius: '15px',
+                backgroundColor: 'rgba(240, 240, 240, 0.7)'}}>🤖 학생 진로 상담 AI 챗봇 (polyglot-ko-1.3B 기반)</h1>
+            <div style={{
+                margin: '10px',
+                padding: '15px 25px',
+                width: '80%',
+                height: '70%',
+                border: '1px solid transparent',
+                borderRadius: '15px',
+                position: 'relative',
+                bottom: '1px',
+                top: '1px',
+                overflowY: 'auto', // 스크롤 가능하도록 설정
+                overflowAnchor: 'none',
+                backgroundColor: 'rgba(240, 240, 240, 0.7)'
+            }}>
                 {/* 모든 메시지를 표시하는 반복문 */}
-                {messages.map((message, index) => (
-                    <div key={index} style={{ textAlign: message.isUser ? 'right' : 'left' }}>
-                        <strong>{message.isUser ? 'You' : 'Bot'}:</strong> {message.text}
+                {/* 아래는 React 컴포넌트에서 JSX를 생성하는 데 사용되는 JavaScript의 배열 메서드 */}
+                {history.slice(0).map((message, index) => (
+                    <div key={index}
+                         style={{
+                             textAlign: message.role === 'user'? 'right' : 'left',
+                             margin: '10px',
+                             width:'auto',  // 채팅 박스의 길이를 자동으로 조절하도록 설정
+                             maxWidth: '50%',    // 채팅 박스의 최대 너비 설정
+                             padding: '15px 25px',
+                             border: '1px solid #ccc',
+                             borderRadius: '5px',
+                             backgroundColor: message.role === 'user' ?  '#f0f0f0' : '#e6f7ff'
+                    }}>
+                        <strong>{message.role === 'user' ? '학생' : 'AI 상담사'} : </strong> {message.content}
                     </div>
                 ))}
+                <div ref={messageEndRef}></div> {/*<-- 이 위치로 스크롤이 내려오게 할 것*/}
                 {/* 입력 폼 */}
-                <form onSubmit={handleSubmit} style={{ position: 'fixed', bottom: 0, left: 0, width: '100%', padding: '10px', backgroundColor: '#f0f0f0' }}>
-                    <input
-                        type="text"
-                        value={inputText}
-                        onChange={(e) => setInputText(e.target.value)}
-                        placeholder="Type your message..."
+                <form onSubmit={handleSubmit} style={{
+                    position: 'fixed',
+                    bottom: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '10%',
+                    padding: '10px',
+                    backgroundColor: '#f0f0f0'
+                }}>
+                    <textarea
+                        value={inputMessage}
+                        onChange={(e) => setInputMessage(e.target.value)} //이용자가 입력창에 텍스트를 입력하거나 수정할 때마다 실시간으로 실행되는 리액트 이벤트 함수
+                        placeholder="원하시는 상담 내용을 입력해주세요. 친절하게 알려드릴게요:)"
                         ref={inputRef}
-                        style={{ width: 'calc(100% - 120px)', marginRight: '10px', padding: '5px' }}
+                        style={{
+                            width: 'calc(100% - 130px)',
+                            height: '85%',
+                            marginRight: '10px',
+                            padding: '5px'
+                        }}
                     />
-                    <button type="submit" style={{ padding: '5px 10px' }}>Send</button>
+                    <button type="submit" style={{
+                        width: '5%',
+                        padding: '20px 45px',
+                        position: 'relative',
+                        bottom: '25px',
+                        right: '3px',
+                    }}><span style={{
+                        position: 'absolute',
+                        left: '50%',
+                        top: '50%',
+                        transform: 'translate(-50%, -50%)',
+                    }}>send</span>
+                    </button>
                 </form>
             </div>
         </div>
     );
 }
 
-// 메시지를 표시하는 컴포넌트
-const Message = ({ text, isUser }) => (
-    <div style={{ margin: '10px', textAlign: isUser ? 'right' : 'left' }}>
-        {/* 사용자 메시지인 경우 "You:", 아닌 경우 "Bot:" 표시 */}
-        {isUser ? <strong>학생:</strong> : <strong>AI 상담사:</strong>} {text}
-    </div>
-);
+// // 메시지를 표시하는 컴포넌트
+// const Message = ({text, isUser}) => (
+//     <div style={{margin: '10px', textAlign: isUser ? 'right' : 'left' }}>
+//         {/* 사용자 메시지인 경우 "You:", 아닌 경우 "Bot:" 표시 */}
+//         {isUser ? <strong>학생:</strong> : <strong>AI 상담사:</strong>} {text}
+//     </div>
+// );
 
 export default ChatApp; // ChatApp 컴포넌트를 내보내기
