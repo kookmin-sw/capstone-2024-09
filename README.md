@@ -1,4 +1,4 @@
-# 1. 프로잭트 소개
+# 1. 프로젝트 소개
 
 **팀페이지 주소** -> https://kookmin-sw.github.io/capstone-2024-09
 
