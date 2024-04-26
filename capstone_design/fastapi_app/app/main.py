@@ -19,7 +19,7 @@ class ChatRequest(BaseModel):
     messages: list
 
 @app.get("/")
-def read_root():z
+def read_root():
     return {"Hello": "World"}
 
 @app.post("/api/chat")
