@@ -42,11 +42,10 @@ function ChatApp() {
         }
     };
 
-    // 화면이 업데이트될 때마다 입력 요소에 포커스 (커서가 특정 요소에 자동으로 위치하게끔 동작)
-    // 화면이 업데이트될 때마다 스크롤이 채팅 박스의 하단에 위치하도록 조작
+
     useEffect(() => {
-        inputRef.current.focus();
-        messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        inputRef.current.focus();    // 화면이 업데이트될 때마다 입력 요소에 포커스 (커서가 특정 요소에 자동으로 위치하게끔 동작)
+        messageEndRef.current.scrollIntoView({ behavior: 'smooth' });     // 화면이 업데이트될 때마다 스크롤이 채팅 박스의 하단에 위치하도록 조작
     }, [history]);
 
     // UI를 구성할 태그들을 반환
@@ -86,19 +85,27 @@ function ChatApp() {
                 {history.slice(0).map((message, index) => (
                     <div key={index}
                          style={{
-                             textAlign: message.role === 'user'? 'right' : 'left',
-                             margin: '10px',
-                             width:'auto',  // 채팅 박스의 길이를 자동으로 조절하도록 설정
-                             maxWidth: '50%',    // 채팅 박스의 최대 너비 설정
-                             padding: '15px 25px',
-                             border: '1px solid #ccc',
-                             borderRadius: '5px',
-                             backgroundColor: message.role === 'user' ?  '#f0f0f0' : '#e6f7ff'
-                    }}>
-                        <strong>{message.role === 'user' ? '학생' : 'AI 상담사'} : </strong> {message.content}
+                             display: 'flex',   // div 태그를 행 단위로 배치
+                             justifyContent: message.role === 'user' ? 'flex-end' : 'flex-start', // 학생이면 행의 오른쪽, 챗봇이면 행의 왼쪽에 배치
+                         }}>
+                             <div
+                                style={{
+                                    textAlign: message.role === 'user' ? 'right' : 'left',
+                                    margin: '10px',
+                                    width: 'auto',  // 채팅 박스의 길이를 자동으로 조절하도록 설정
+                                    maxWidth: '50%',    // 채팅 박스의 최대 너비 설정
+                                    padding: '15px 25px',
+                                    border: '1px solid #ccc',
+                                    borderRadius: '5px',
+                                    backgroundColor: message.role === 'user' ? '#e6f7ff' : '#f0f0f0'
+                                 }}>
+                                    <strong>{message.role === 'user' ? '학생' : 'AI 상담사'} : </strong> {message.content}
+
+                             </div>
                     </div>
                 ))}
-                <div ref={messageEndRef}></div> {/*<-- 이 위치로 스크롤이 내려오게 할 것*/}
+                <div ref={messageEndRef}></div>
+                {/*<-- 이 위치로 스크롤이 내려오게 할 것*/}
                 {/* 입력 폼 */}
                 <form onSubmit={handleSubmit} style={{
                     position: 'fixed',
