@@ -2,11 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import background from "./background-blurry-restaurant-shop-interior.jpg";
 import './App.css';
 
-const API_URL = "https://api-inference.huggingface.co/models/EleutherAI/polyglot-ko-1.3b";
-const API_TOKEN = "___________________";
-const headers = { "Authorization": `Bearer ${API_TOKEN}` };
-
-
 function ChatApp() {
     // 상태 변수들을 정의
     const [history, setHistory] = useState([]); // 모든 메시지를 관리하는 상태 변수 (이전 메시지 기록)
@@ -80,7 +75,7 @@ function ChatApp() {
                 overflowAnchor: 'none',
                 backgroundColor: 'rgba(240, 240, 240, 0.7)'
             }}>
-                {/* 모든 메시지를 표시하는 반복문 */}
+                {/* 모든 메시지를 화면에 배치하는 함수 */}
                 {/* 아래는 React 컴포넌트에서 JSX를 생성하는 데 사용되는 JavaScript의 배열 메서드 */}
                 {history.slice(0).map((message, index) => (
                     <div key={index}
@@ -147,12 +142,5 @@ function ChatApp() {
     );
 }
 
-// // 메시지를 표시하는 컴포넌트
-// const Message = ({text, isUser}) => (
-//     <div style={{margin: '10px', textAlign: isUser ? 'right' : 'left' }}>
-//         {/* 사용자 메시지인 경우 "You:", 아닌 경우 "Bot:" 표시 */}
-//         {isUser ? <strong>학생:</strong> : <strong>AI 상담사:</strong>} {text}
-//     </div>
-// );
 
 export default ChatApp; // ChatApp 컴포넌트를 내보내기
