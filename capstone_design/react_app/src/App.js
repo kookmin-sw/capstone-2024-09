@@ -89,6 +89,7 @@ function ChatApp() {
                                     margin: '10px',
                                     width: 'auto',  // 채팅 박스의 길이를 자동으로 조절하도록 설정
                                     maxWidth: '50%',    // 채팅 박스의 최대 너비 설정
+                                    wordWrap: 'break-word', // 텍스트가 최대 너비를 넘어가면 단어 단위로 줄 바꿈
                                     padding: '15px 25px',
                                     border: '1px solid #ccc',
                                     borderRadius: '5px',
