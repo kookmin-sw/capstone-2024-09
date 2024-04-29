@@ -8,28 +8,30 @@ function App() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newMessage = { role: 'user', content: inputMessage };
-        setMessages([...messages, newMessage]);
-        setInputMessage('');
+        const updatedMessages = [...messages, newMessage];
 
         try {
-            const response = await fetch('http://fastapi_app:5000/api/chat', {
+            const response = await fetch('http://localhost:5000/api/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ messages: [...messages, newMessage] }),
+                credentials: 'include',
+                body: JSON.stringify({ messages: updatedMessages }),
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                const assistantMessage = { role: 'assistant', content: data.result };
-                setMessages([...messages, newMessage, assistantMessage]);
-            } else {
+            if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+
+            const data = await response.json();
+            console.log(data);
         } catch (error) {
             console.error('Error:', error);
         }
+
+        setMessages([...messages, newMessage]);
+        setInputMessage('');
     };
 
     return (
