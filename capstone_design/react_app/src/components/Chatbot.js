@@ -8,6 +8,7 @@ export function ChatComponent() {
         e.preventDefault();
         const newMessage = { role: 'user', content: inputMessage };
         const updatedMessages = [...messages, newMessage];
+        // 이거는 추 후에 분류형 AI에게 넘겨줄 데이터로 사용하며 될 듯 하다.
 
         try {
             const response = await fetch('http://develop.sung4854.com:5000/api/chat', {
@@ -16,7 +17,7 @@ export function ChatComponent() {
                     'Content-Type': 'application/json',
                 },
                 credentials: 'include',
-                body: JSON.stringify({ messages: updatedMessages }),
+                body: JSON.stringify({ messages: newMessage }),
             });
 
             if (!response.ok) {
