@@ -21,8 +21,6 @@ services:
     image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-react${BRANCH_NAME}
     ports:
       - "3000:3000"
-    environment:
-      - REACT_APP_API_URL = http://fastapi_app:5000
     networks:
       - my-app-network
     depends_on:
