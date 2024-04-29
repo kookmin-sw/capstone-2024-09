@@ -4,25 +4,16 @@ networks:
     driver: bridge
 
 services:
-  flask_app:
-    container_name: flask_app
+  fastapi_app:
+    container_name: fastapi_app
     restart: always
-    image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-flask${BRANCH_NAME}
+    image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-fastapi${BRANCH_NAME}
     ports:
       - "5000:5000"
+    env_file:
+      - .env
     networks:
       - my-app-network
-
-  express_app:
-    container_name: express_app
-    restart: always
-    image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-express${BRANCH_NAME}
-    ports:
-      - "3001:3001"
-    networks:
-      - my-app-network
-    depends_on:
-      - flask_app
 
   react_app:
     container_name: react_app
@@ -30,12 +21,10 @@ services:
     image: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-react${BRANCH_NAME}
     ports:
       - "3000:3000"
-    environment:
-      - REACT_APP_API_URL=http://express_app:3001
     networks:
       - my-app-network
     depends_on:
-      - express_app
+      - fastapi_app
 
   nginx:
     container_name: proxy_nginx
@@ -45,4 +34,4 @@ services:
       - "8080:8080"
     depends_on:
       - react_app
-      - express_app
+      - fastapi_app
