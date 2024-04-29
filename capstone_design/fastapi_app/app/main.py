@@ -9,6 +9,8 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",  # React 앱의 도메인
     "http://fastapi_app:5000",
+    "http://develop.sung4854.com:3000",
+    "https://develop.sung4854.com",
     # 추가적인 도메인들...
 ]
 
