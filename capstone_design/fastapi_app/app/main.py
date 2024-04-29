@@ -31,8 +31,9 @@ def read_root():
 
 @app.post("/api/chat")
 async def chat(message: Message):
-    role = message.messages[0]['role']
-    msg = message.messages[0]['content']
+    print(message)
+    role = message.messages['role']
+    msg = message.messages['content']
     return_mes = get_chat_response(msg)
     return {"response": return_mes}
 
