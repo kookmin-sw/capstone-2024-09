@@ -1,10 +1,14 @@
-from fastapi import FastAPI, Request
+# -*- coding: utf-8 -*-
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import APIRouter, Request
 from pydantic import BaseModel
-from typing import List, Dict, Union
 from .open_ai import get_chat_response
+from .db_query import save_chats, get_job_categories
+from typing import List, Dict, Union
+from fastapi.responses import UJSONResponse
 
-app = FastAPI()
+app = FastAPI(default_response_class=UJSONResponse)
 
 origins = [
     "http://localhost:3000",  # React 앱의 도메인
@@ -35,8 +39,16 @@ async def chat(message: Message):
     role = message.messages['role']
     msg = message.messages['content']
     return_mes = get_chat_response(msg)
+    await save_chats(role, msg) # save content to database
     return {"response": return_mes}
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str | None = None):
-    return {"item_id": item_id, "q": q}
+@app.post("/api/get_result")
+async def get_result(messages: Messages):
+    print(messages)
+    return {"response": "success"}
+
+@app.post("/get_job/")
+async def get_job(id: int):
+    job = await get_job_categories(id)
+    print(job)
+    return {"response": job}
