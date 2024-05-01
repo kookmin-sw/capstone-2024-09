@@ -9,6 +9,11 @@ db_password = os.getenv('DB_PASSWORD')
 db_host = os.getenv('DB_HOST')
 db_name = os.getenv('DB_NAME')
 
+print(db_user)
+print(db_password)
+print(db_host)
+print(db_name)
+
 engine = create_engine(f"mysql+pymysql://{db_user}:{db_password}@{db_host}/{db_name}")
 
 async def save_chats(role, msg):
