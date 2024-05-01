@@ -39,6 +39,4 @@ async def get_job_categories(id):
         result = connection.execute(query, {'id': id})
         rows = result.fetchall()
         print(rows)
-        data = [dict(row) for row in rows]
-        print(data)
-        return {"data": data}
+        return {"job": rows[0][0], "category": rows[0][1]}
