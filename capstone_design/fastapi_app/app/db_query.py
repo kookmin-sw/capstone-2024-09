@@ -37,6 +37,7 @@ async def get_job_categories(id):
     with engine.connect() as connection:
         query = text("SELECT * FROM jobs WHERE id = :id")
         result = connection.execute(query, {'id': id})
+        print(result)
         data = [dict(row) for row in result]
         print(data)
         return {"data": data}
