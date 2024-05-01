@@ -2,7 +2,7 @@
 from sqlalchemy import create_engine, MetaData, Table, select
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
-
+import os
 
 db_user = os.getenv('DB_USER')
 db_password = os.getenv('DB_PASSWORD')
