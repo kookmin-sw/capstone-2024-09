@@ -38,5 +38,4 @@ async def get_job_categories(id):
         query = text("SELECT * FROM jobs WHERE id = :id")
         result = connection.execute(query, {'id': id})
         rows = result.fetchall()
-        print(rows)
         return {"job": rows[0][0], "category": rows[0][1]}
