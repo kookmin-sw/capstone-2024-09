@@ -4,23 +4,6 @@ networks:
     driver: bridge
 
 services:
-  mysql_db:
-    container_name: mysql_db
-    image: mysql:5.7
-    ports:
-      - "3306:3306"
-    env_file:
-      - .env
-    volumes:
-      - ./capstone_design/mysql_db/initdb:/docker-entrypoint-initdb.d
-      - ./capstone_design/mysql_db/etc/my.cnf:/etc/mysql/my.cnf
-    networks:
-      - my-app-network
-    command:
-      - --character-set-server=utf8mb4
-      - --collation-server=utf8mb4_unicode_ci
-      - --skip-character-set-client-handshake
-
   fastapi_app:
     container_name: fastapi_app
     restart: always

@@ -3,10 +3,13 @@ from sqlalchemy import create_engine, MetaData, Table, select
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
 
-DATABASE_URL = "mysql+pymysql://root:root@mysql_db/consult_data?charset=utf8mb4"
-engine = create_engine(DATABASE_URL, poolclass=NullPool)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+db_user = os.getenv('DB_USER')
+db_password = os.getenv('DB_PASSWORD')
+db_host = os.getenv('DB_HOST')
+db_name = os.getenv('DB_NAME')
+
+engine = create_engine(f"mysql+pymysql://{db_user}:{db_password}@{db_host}/{db_name}")
 
 async def save_chats(role, msg):
     session = SessionLocal()
@@ -20,17 +23,9 @@ async def save_chats(role, msg):
         session.close()
 
 async def get_job_categories(id):
-    session = SessionLocal()
-    try:
-        metadata = MetaData()
-        jobs = Table('jobs', metadata, autoload_with=engine)
-        query = select(jobs).where(jobs.c.id == id)
-        result = session.execute(query)
-        row = result.fetchone()
-        if row is None:
-            return {"error": "No chat with id 1 found"}
-        job = row[1].encode('utf-8').decode('utf-8')
-        job_category = row[2].encode('utf-8').decode('utf-8')
-        return {"job": job, "category": job_category}
-    finally:
-        session.close()
+    with engine.connect() as connection:
+        query = text("SELECT * FROM jobs WHERE id = :id")
+        result = connection.execute(query, id=id)
+        for row in result:
+            print(dict()row))
+        return {"data": [dict(row) for row in result]}
