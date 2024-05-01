@@ -81,7 +81,7 @@ jobs:
       # github repository에서 checkout
       - name: checkout
         uses: actions/checkout@v4
-      # docker-compose.yml 파일 전송
+      # docker-compose.yml 파일 및 DB에 setting에 필요한 파일 옮기기
       - name: Deploy docker_compose file
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -89,7 +89,7 @@ jobs:
           username: ${{ secrets.DEVELOP_USER }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          source: './docker-compose.yml'
+          source: './docker-compose.yml, ./capstone_design/mysql_db/'
           target: '/home/ubuntu'
       # ghcr 로그인
       - name: Login to ghcr
