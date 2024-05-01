@@ -87,8 +87,7 @@ jobs:
       # docker run
       - name: Docker run
         run: |
-          docker stop $(docker ps) 
-          docker rm $(docker ps -a -q)
+          docker rm -f $(docker ps -a -q)
           docker rmi -f $(docker images -q)
           docker pull ${{ env.DOCKER_FASTAPI_IMAGE }}:latest && docker pull ${{ env.DOCKER_REACT_IMAGE }}:latest && docker pull ${{ env.DOCKER_NGINX_IMAGE }}:latest
           cd /home/iscmyoo/
