@@ -28,6 +28,8 @@ app.add_middleware(
 
 class Message(BaseModel):
     messages: Dict[str, Union[str, str]]
+class Messages(BaseModel):
+    messages: List[Message]
 
 @app.get("/")
 def read_root():
