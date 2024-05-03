@@ -60,19 +60,6 @@ jobs:
           tags: ${{ env.DOCKER_REACT_IMAGE }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-      # nginx app image build and push
-      - name: Build nginx image and push
-        id: docker_build_nginx
-        uses: docker/build-push-action@v5
-        with:
-          file: ./capstone_design/nginx/Dockerfile
-          builder: ${{ steps.buildx.outputs.name }}
-          push: true
-          tags: ${{ env.DOCKER_NGINX_IMAGE }}:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-
   deploy:
     needs: build
     name: Deploy docker image
@@ -81,7 +68,7 @@ jobs:
       # github repository에서 checkout
       - name: checkout
         uses: actions/checkout@v4
-      # docker-compose.yml 파일 전송
+      # docker-compose.yml 파일 옮기기
       - name: Deploy docker_compose file
         uses: appleboy/scp-action@v0.1.7
         with:
