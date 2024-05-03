@@ -13,8 +13,6 @@ function App() {
     // 메시지 전송 핸들러 함수 (사용자 입력을 처리하고 API를 호출하는 함수)
     const handleSubmit = async () => {
         const newHistory = { role: 'user', content: inputMessage };
-        setHistory([...history, newHistory]);
-        setInputMessage('');
 
         try {
             const response = await fetch('http://develop.sung4854.com:5000/api/chat', {
@@ -22,20 +20,22 @@ function App() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ messages: [...history] }),
+                body: JSON.stringify({ messages: newHistory }),
             });
 
             if (response.ok) {
                 const data = await response.json();
                 const consultantMessage = { role: 'consultant', content: data.result };
                 setHistory([...history, consultantMessage]);
-
+                console.log("테스트용 출력 : ", data);
             } else {
                 throw new Error('Network response was not ok');
             }
         } catch (error) {
             console.error('Error:', error);
         }
+        setHistory([...history, newHistory]);
+        setInputMessage('');
     };
 
     return (
