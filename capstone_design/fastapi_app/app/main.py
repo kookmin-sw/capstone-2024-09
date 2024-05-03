@@ -61,3 +61,7 @@ async def get_job(_id: int):
     job = await get_job_categories(_id)
     print(job)
     return {"response": job}
+
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app, port=5000)
