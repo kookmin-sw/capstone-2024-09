@@ -35,6 +35,7 @@ async def chat(message: Message):
     role = message.messages['role']
     msg = message.messages['content']
     return_mes = get_chat_response(msg)
+    print("return_mes : ", return_mes)
     return {"response": return_mes}
 
 @app.get("/items/{item_id}")
