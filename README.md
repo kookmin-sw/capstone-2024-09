@@ -59,7 +59,7 @@
   또한 문서벡터를 만드는 TfidfVectorizer 객체도 따로 joblib 타입의 파일로 저장하였다.
  
 ### 2) 작업한 주피터 노트북 파일의 원본 링크
-https://colab.research.google.com/drive/13et3P_uYkmwEZY-iTX7vqK82KeHVPM2V?usp=sharing
+- https://colab.research.google.com/drive/13et3P_uYkmwEZY-iTX7vqK82KeHVPM2V?usp=sharing
 
 
 
