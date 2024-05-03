@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
+from typing import List, Dict, Union
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import APIRouter, Request
-from pydantic import BaseModel
-from ./AI/open_ai import get_chat_response
-from .db_query import save_chats, get_job_categories
-from typing import List, Dict, Union
 from fastapi.responses import UJSONResponse
+from pydantic import BaseModel
+
+from AI.open_ai import get_chat_response
+from db_query import save_chats, get_job_categories
 
 app = FastAPI(default_response_class=UJSONResponse)
 
@@ -26,30 +27,37 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 class Message(BaseModel):
     messages: Dict[str, Union[str, str]]
+
+
 class Messages(BaseModel):
     messages: List[Message]
+
 
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
+
 
 @app.post("/api/chat")
 async def chat(message: Message):
     role = message.messages['role']
     msg = message.messages['content']
     return_mes = get_chat_response(msg)
-    await save_chats(role, msg) # save content to database
+    await save_chats(role, msg)  # save content to database
     return {"response": return_mes}
+
 
 @app.post("/api/get_result")
 async def get_result(messages: Messages):
     print(messages)
     return {"response": "success"}
 
+
 @app.post("/get_job/")
-async def get_job(id: int):
-    job = await get_job_categories(id)
+async def get_job(_id: int):
+    job = await get_job_categories(_id)
     print(job)
     return {"response": job}
