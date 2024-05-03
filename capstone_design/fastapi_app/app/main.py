@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import UJSONResponse
 from pydantic import BaseModel
 
-from AI import open_ai
+from .open_ai import get_chat_response
 from db_query import save_chats, get_job_categories
 
 app = FastAPI(default_response_class=UJSONResponse)
@@ -45,7 +45,7 @@ def read_root():
 async def chat(message: Message):
     role = message.messages['role']
     msg = message.messages['content']
-    return_mes = open_ai.get_chat_response(msg)
+    return_mes = get_chat_response(msg)
     await save_chats(role, msg)  # save content to database
     return {"response": return_mes}
 
