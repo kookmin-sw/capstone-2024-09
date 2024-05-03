@@ -56,6 +56,7 @@
 - 다층 퍼셉트론은 transformer 모델이 아니기 때문에 허깅페이스에 업로드해 그 api를 이용할 수는 없었다.
   모델 자체가 17.2mb로 비교적 가볍기 때문에, 서버에 모델을 탑재하여 필요할 때 서버 내에서 불러와서 쓰는 방식을 이용하기로 하였다.
   따라서 모델을 서버에 저장할 수 있게 joblib 타입의 파일로 저장하였고, 이를 별도로 서버로 옮기는 작업을 하였다.
+  또한 문서벡터를 만드는 TfidfVectorizer 객체도 따로 joblib 타입의 파일로 저장하였다.
  
 ### 2) 작업한 주피터 노트북 파일의 원본 링크
 - https://colab.research.google.com/drive/13et3P_uYkmwEZY-iTX7vqK82KeHVPM2V?usp=sharing
@@ -64,13 +65,14 @@
 
 ## 4. 분류형 ai의 사용법
 ```python
+# !pip install joblib
 import joblib
 
 # 저장된 모델 불러오기
 mlp_model = joblib.load('mlp_model.joblib')
 
 # 파이썬 한국어 처리 패키지 설치
-!pip install konlpy
+# !pip install konlpy
 
 # 문장들을 단어로 쪼갤 형태소 분석 라이브러리 불러오기
 from konlpy.tag import Okt
@@ -80,18 +82,18 @@ okt = Okt()
 conversation_X = []
 
 # 챗봇과 이용자(학생)간의 대화 내용인 data 변수 내의 문장을 sentence 변수에 저장하는 작업
-sentence = data
+sentence = "저는 축구선수가 되고 싶어요. 어떻게 준비해야 하나요?"  # 예시 데이터
 
 # sentence 변수에 저장된 문장을 단어로 쪼개서 단어 별로 띄어쓰기해서 저장(나중에 문서 벡터를 만들때 띄어쓰기 단위로 벡터의 요소를 형성하기 때문에)
 conversation_X.append(" ".join(okt.nouns(sentence)))
 
 
-from sklearn.feature_extraction.text import TfidfVectorizer # 문장을 문서벡터로 변환시켜줄 TfidfVectorizer 라이브러리 불러오기
+# from sklearn.feature_extraction.text import TfidfVectorizer # 문장을 문서벡터로 변환시켜줄 TfidfVectorizer 라이브러리 불러오기
 import numpy as np  # 데이터를 array로 변환시키기 위해 numpy 라이브러리 불러오기
 
 
 # 학생과 상담사 간의 대화들을 문서벡터로 변환하기 위해 TF-IDF 벡터화를 수행
-vectorizer = TfidfVectorizer()
+vectorizer = joblib.load('tfidfvectorizer.joblib')  # TfidfVectorizer 객체 불러오기
 X_tfidf = vectorizer.fit_transform(conversation_X).toarray()
 
 
