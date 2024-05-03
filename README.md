@@ -69,7 +69,7 @@
 import joblib
 
 # 저장된 모델 불러오기
-mlp_model = joblib.load('mlp_model.joblib')
+mlp_model = joblib.load('./mlp_model.joblib')
 
 # 파이썬 한국어 처리 패키지 설치
 # !pip install konlpy
@@ -82,25 +82,23 @@ okt = Okt()
 conversation_X = []
 
 # 챗봇과 이용자(학생)간의 대화 내용인 data 변수 내의 문장을 sentence 변수에 저장하는 작업
-sentence = "저는 축구선수가 되고 싶어요. 어떻게 준비해야 하나요?"  # 예시 데이터
+sentence = "저는 축구 선수가 되고 싶습니다. 어떻게 하면 되는지 알려주세요."   # 예시 데이터
 
 # sentence 변수에 저장된 문장을 단어로 쪼개서 단어 별로 띄어쓰기해서 저장(나중에 문서 벡터를 만들때 띄어쓰기 단위로 벡터의 요소를 형성하기 때문에)
 conversation_X.append(" ".join(okt.nouns(sentence)))
 
-
-# from sklearn.feature_extraction.text import TfidfVectorizer # 문장을 문서벡터로 변환시켜줄 TfidfVectorizer 라이브러리 불러오기
 import numpy as np  # 데이터를 array로 변환시키기 위해 numpy 라이브러리 불러오기
 
 
 # 학생과 상담사 간의 대화들을 문서벡터로 변환하기 위해 TF-IDF 벡터화를 수행
-vectorizer = joblib.load('tfidfvectorizer.joblib')  # TfidfVectorizer 객체 불러오기
-X_tfidf = vectorizer.fit_transform(conversation_X).toarray()
+vectorizer = joblib.load('tfidfvectorizer.joblib')  # 문장을 문서벡터로 변환시켜줄 TfidfVectorizer 객체 불러오기
+X_tfidf = vectorizer.transform(conversation_X).toarray()
 
 
 
 # 모델에 문서벡터 넘겨주고 추천 직업 번호 반환받기
 # 반환되는 값 : 0~42 (=integer 타입의 값)
 predictions = mlp_model.predict(X_tfidf)
-
+# print("predictions : ", predictions) # 반환된 직업 카테고리 번호 출력해보기
 
 # 이후 predictions에 저장된 추천 직업 번호에 따라 db에 접근해서 해당 직업 정보를 가져오면 됨.
