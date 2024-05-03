@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import APIRouter, Request
 from pydantic import BaseModel
-from .open_ai import get_chat_response
+from ./AI/open_ai import get_chat_response
 from .db_query import save_chats, get_job_categories
 from typing import List, Dict, Union
 from fastapi.responses import UJSONResponse
