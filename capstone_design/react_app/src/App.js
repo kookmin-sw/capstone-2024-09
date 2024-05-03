@@ -17,7 +17,7 @@ function App() {
         setInputMessage('');
 
         try {
-            const response = await fetch('http://fastapi_app:5000/api/chat', {
+            const response = await fetch('http://develop.sung4854.com:5000/api/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
