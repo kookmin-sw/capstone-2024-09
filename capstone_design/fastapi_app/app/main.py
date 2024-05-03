@@ -7,7 +7,7 @@ from fastapi.responses import UJSONResponse
 from pydantic import BaseModel
 
 from .open_ai import get_chat_response
-from db_query import save_chats, get_job_categories
+from .db_query import save_chats, get_job_categories
 
 app = FastAPI(default_response_class=UJSONResponse)
 
