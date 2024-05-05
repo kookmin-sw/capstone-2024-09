@@ -8,6 +8,7 @@ from pydantic import BaseModel
 
 from .open_ai import get_chat_response
 from .db_query import save_chats, get_job_categories
+from .classification_ai import predict
 
 app = FastAPI(default_response_class=UJSONResponse)
 
@@ -50,18 +51,10 @@ async def chat(message: Message):
     return {"response": return_mes}
 
 
-@app.post("/api/get_result")
-async def get_result(messages: Messages):
-    print(messages)
-    return {"response": "success"}
-
-
-@app.post("/get_job/")
-async def get_job(_id: int):
+@app.get("/api/get_result")
+async def get_result():
+    _id = predict("저는 축구 선수가 되고 싶습니다. 어떻게 하면 되는지 알려주세요.")
+    print(_id)
     job = await get_job_categories(_id)
     print(job)
     return {"response": job}
-
-if __name__ == '__main__':
-    import uvicorn
-    uvicorn.run(app, port=5000)
