@@ -21,7 +21,6 @@ function Message({ index, role, content }) {
                     backgroundColor: role === 'user' ? '#e6f7ff' : '#f0f0f0'
                 }}>
                 <strong>{role === 'user' ? '학생' : 'AI 상담사'} : </strong> {content}
-
             </div>
         </div>
     );
