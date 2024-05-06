@@ -1,5 +1,6 @@
-// ChatBox 컴포넌트
+// 채팅창 및 채팅 메시지 생성 컴포넌트
 import React, { useEffect, useRef } from 'react';
+import Icon from './Icon';
 import Message from './Message';
 
 function ChatBox({ history }) {
@@ -22,14 +23,16 @@ function ChatBox({ history }) {
                 bottom: '1px',
                 top: '1px',
                 overflowY: 'auto',  // 스크롤 가능하도록 설정
-                overflowAnchor: 'none',
+                overflowAnchor: 'none', // 페이지 새로고침 시, 스크롤바가 상단에 고정돼 있지 않게 설정
                 backgroundColor: 'rgba(240, 240, 240, 0.7)'
             }}
         >
             {/* 모든 메시지를 화면에 배치하는 함수 */}
             {/* 아래는 React 컴포넌트에서 JSX를 생성하는 데 사용되는 JavaScript의 배열 메서드 */}
             {history.map((message, index) => (
-                <Message key={index} role={message.role} content={message.content} />
+                <>
+                    {message.role === 'consultant' && <Icon />}<Message key={index} role={message.role} content={message.content} />
+                </>
             ))}
             <div ref={messageEndRef}></div>
             {/*<-- 이 위치로 스크롤이 내려오게 할 것*/}
