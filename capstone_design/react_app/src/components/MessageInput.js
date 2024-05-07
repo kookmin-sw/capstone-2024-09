@@ -1,4 +1,4 @@
-// MessageInput 컴포넌트
+// 메시지 입력창 컴포넌트
 import React, { useRef, useEffect } from 'react';
 
 function MessageInput({ onSubmit, inputMessage, setInputMessage, siren }) {
