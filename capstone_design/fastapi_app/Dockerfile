@@ -1,17 +1,15 @@
 FROM python:3.10
 
-# 필수 패키지 설치
 RUN apt-get update && \
     apt-get install -y ca-certificates wget && \
     rm -rf /var/lib/apt/lists/*
 
-# OpenJDK 11 다운로드 및 설치
 RUN wget https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz && \
     tar -xzf openjdk-11.0.2_linux-x64_bin.tar.gz && \
     rm openjdk-11.0.2_linux-x64_bin.tar.gz
 
-# JAVA_HOME 환경변수 설정
-ENV JAVA_HOME=/Final_Project/jdk-11.0.2
+ENV JAVA_HOME=/Final_Project/jdk-11.0.2/
+RUN ln -s /Final_Project/jdk-11.0.2/lib/server/libjvm.so /usr/lib/libjvm.so
 
 RUN mkdir -p /Final_Project
 WORKDIR /Final_Project
