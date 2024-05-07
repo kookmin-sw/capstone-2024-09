@@ -1,7 +1,12 @@
-FROM openjdk:11-jdk
+FROM python:3.10
 
-# 파이썬 설치
-RUN apt-get update && apt-get install -y python3 python3-pip
+# OpenJDK 11 설치
+RUN apt-get update && \
+    apt-get install -y openjdk-11-jdk && \
+    rm -rf /var/lib/apt/lists/*
+
+# JAVA_HOME 환경변수 설정
+ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 
 # 작업 디렉터리 설정
 RUN mkdir -p /Final_Project
