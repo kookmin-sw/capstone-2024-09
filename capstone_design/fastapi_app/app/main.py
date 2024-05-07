@@ -51,10 +51,10 @@ async def chat(message: Message):
     return {"response": return_mes}
 
 
-@app.get("/api/get_result")
-async def get_result():
-    _id = predict("저는 축구 선수가 되고 싶습니다. 어떻게 하면 되는지 알려주세요.")
-    print(_id)
-    job = await get_job_categories(_id)
-    print(job)
-    return {"response": job}
+# @app.get("/api/get_result")
+# async def get_result():
+    # _id = predict("저는 축구 선수가 되고 싶습니다. 어떻게 하면 되는지 알려주세요.")
+    # print(_id)
+    # job = await get_job_categories(_id)
+    # print(job)
+    # return {"response": job}
