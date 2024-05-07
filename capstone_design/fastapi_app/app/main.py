@@ -8,7 +8,7 @@ from pydantic import BaseModel
 
 from .open_ai import get_chat_response
 from .db_query import save_chats, get_job_categories
-from .classification_ai import predict
+# from .classification_ai import predict
 
 app = FastAPI(default_response_class=UJSONResponse)
 
