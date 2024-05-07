@@ -8,9 +8,9 @@ RUN wget https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_
     tar -xzf openjdk-11.0.2_linux-x64_bin.tar.gz && \
     rm openjdk-11.0.2_linux-x64_bin.tar.gz
 
-ENV JAVA_HOME=/Final_Project/jdk-11.0.2/
+ENV JAVA_HOME=/jdk-11.0.2/
 ENV LD_LIBRARY_PATH=$JAVA_HOME/lib/server
-RUN ln -s /Final_Project/jdk-11.0.2/lib/server/libjvm.so /usr/lib/libjvm.so
+RUN ln -s /jdk-11.0.2/lib/server/libjvm.so /usr/lib/libjvm.so
 
 RUN mkdir -p /Final_Project
 WORKDIR /Final_Project
