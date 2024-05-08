@@ -16,7 +16,7 @@ function ChatBox({ history }) {
                 margin: '10px',
                 padding: '15px 25px',
                 width: '80%',
-                height: '70%',
+                height: '68%',
                 border: '1px solid transparent',
                 borderRadius: '15px',
                 position: 'relative',
