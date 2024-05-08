@@ -60,7 +60,10 @@ function App() {
                 border: '1px solid transparent',
                 borderRadius: '15px',
                 backgroundColor: 'rgba(240, 240, 240, 0.7)'
-            }}>🤖 학생 진로 상담 AI 챗봇</h1>
+            }}>🤖 학생 진로 상담 AI 챗봇 올빼미 🤖
+                <br/>
+                <small><small><small>AI 상담사와의 대화 내용을 토대로 직업을 추천받고 싶으시면 "이제 직업을 추천해주세요"라고 얘기해주세요.</small></small></small>
+            </h1>
             {loading && <LoadingSpinner />} {/* 로딩 바 표시 */}
             <ChatBox history={history} />
             {/* 입력 폼 */}
