@@ -32,11 +32,13 @@ async def save_chats(role, msg):
     finally:
         session.close()
 
-async def get_job_categories(id):
+async def get_job_categories(id: int):
     with engine.connect() as connection:
+        id += 1
         query = text("SELECT * FROM jobs WHERE id = :id")
         result = connection.execute(query, {'id': id})
         rows = result.fetchall()
+        print(rows)
         return {"job": rows[0][1], "category": rows[0][2]}
 
 async def get_chats():
