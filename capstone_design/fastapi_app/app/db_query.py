@@ -38,3 +38,11 @@ async def get_job_categories(id):
         result = connection.execute(query, {'id': id})
         rows = result.fetchall()
         return {"job": rows[0][1], "category": rows[0][2]}
+
+async def get_chats():
+    session = SessionLocal()
+    try:
+        chats = session.query(Chat).all()
+        return chats
+    finally:
+        session.close()
