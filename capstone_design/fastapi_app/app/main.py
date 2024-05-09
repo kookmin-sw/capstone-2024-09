@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from typing import List, Dict, Union
+import httpx
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -51,11 +52,14 @@ async def chat(message: Message):
     return {"response": return_mes}
 
 
-@app.get("/api/get_result")
+@app.post("/api/get_result")
 async def get_result():
-    print("분석 시작")
-    # _id = predict("저는 축구 선수가 되고 싶습니다. 어떻게 하면 되는지 알려주세요.")
-    # print(_id)
-    # job = await get_job_categories(_id)
-    # print(job)
-    # return {"response": job}
+    # DB 서버에서 문자열 뽑아오기
+    messages = "나는 축구와 농구를 좋아해! 그리고 누군가를 가르치는 것도 좋아해서 축구코치나 감독을 하고 싶은데 어떤 것을 준비해야 해?"
+    data = {"message" : messages}
+
+    response = httpx.post("http://home.sung4854.com:8000/api/pred", json=data)
+    response.raise_for_status()
+    result = response.json()
+
+    return {"response": result}

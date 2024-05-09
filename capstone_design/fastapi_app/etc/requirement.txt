@@ -8,3 +8,4 @@ ujson==5.9.0
 joblib==1.4.2
 konlpy==0.6.0
 scikit-learn==1.4.2
+httpx==0.27.0
