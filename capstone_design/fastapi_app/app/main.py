@@ -63,7 +63,7 @@ async def get_result():
     response = httpx.post("http://home.sung4854.com:8000/api/predict", json=data)
     response.raise_for_status()
     result = response.json()
-    job_info = get_job_categories(result['result'])
+    job_info = await get_job_categories(result['result'])
     print(job_info)
 
     return job_info
