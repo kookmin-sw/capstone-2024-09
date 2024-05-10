@@ -30,9 +30,9 @@ function ChatBox({ history }) {
             {/* 모든 메시지를 화면에 배치하는 함수 */}
             {/* 아래는 React 컴포넌트에서 JSX를 생성하는 데 사용되는 JavaScript의 배열 메서드 */}
             {history.map((message, index) => (
-                <>
-                    {message.role === 'consultant' && <Icon />}<Message key={index} role={message.role} content={message.content} />
-                </>
+                <React.Fragment key={index}>
+                    {message.role === 'consultant' && <Icon />}<Message role={message.role} content={message.content} />
+                </React.Fragment>
             ))}
             <div ref={messageEndRef}></div>
             {/*<-- 이 위치로 스크롤이 내려오게 할 것*/}
