@@ -1,4 +1,4 @@
-// Message 컴포넌트
+// 각 채팅 메시지의 디자인 컴포넌트
 import React from 'react';
 
 function Message({ index, role, content }) {
@@ -17,10 +17,10 @@ function Message({ index, role, content }) {
                     wordWrap: 'break-word', // 텍스트가 최대 너비를 넘어가면 단어 단위로 줄 바꿈
                     padding: '15px 25px',
                     border: '1px solid #ccc',
-                    borderRadius: '5px',
+                    borderRadius: '20px',
                     backgroundColor: role === 'user' ? '#e6f7ff' : '#f0f0f0'
                 }}>
-                <strong>{role === 'user' ? '학생' : 'AI 상담사'} : </strong> {content}
+                <strong>{role === 'user' ? '' : 'AI 상담사 : '}</strong> {content}
             </div>
         </div>
     );
