@@ -54,7 +54,7 @@ async def chat(message: Message):
 
 @app.post("/api/get_result")
 async def get_result(messages: Messages):
-    contents = " ".join([message.content for message in messages.messages])])
+    contents = " ".join([message.content for message in messages.messages])
     data = {"content" : contents}
 
     response = httpx.post("http://home.sung4854.com:8000/api/predict", json=data)
