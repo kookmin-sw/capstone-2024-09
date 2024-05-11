@@ -53,12 +53,20 @@ async def chat(message: Message):
 
 
 
+from fastapi import Request
+
 @app.post("/api/get_result")
-async def get_result(messages: Messages):
-    # DB 서버에서 문자열 뽑아오기
-    # chats = await get_chats()
-    # messages = " ".join([chat.content for chat in chats])
-    print(messages.dict())
+async def get_result(request: Request):
+    body = await request.json()
+    print(body)  # Log the request body
+    # ...remaining code...
+
+# @app.post("/api/get_result")
+# async def get_result(messages: Messages):
+#     # DB 서버에서 문자열 뽑아오기
+#     # chats = await get_chats()
+#     # messages = " ".join([chat.content for chat in chats])
+#     print(messages.dict())
 
     # print(messages.messages)
     # messages = " ".join([message.content for message in messages.messages])
