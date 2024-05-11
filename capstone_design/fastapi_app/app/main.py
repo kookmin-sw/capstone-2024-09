@@ -30,8 +30,8 @@ app.add_middleware(
 
 
 class Message(BaseModel):
-    messages: Dict[str, Union[str, str]]
-
+    role: str
+    content: str
 
 class Messages(BaseModel):
     messages: List[Message]
@@ -52,33 +52,18 @@ async def chat(message: Message):
     return {"response": return_mes}
 
 
-
-from fastapi import Request
-
 @app.post("/api/get_result")
-async def get_result(request: Request):
-    body = await request.json()
-    print(body)  # Log the request body
-    # ...remaining code...
+async def get_result(messages: Messages):
+    contents = " ".join([message.content for message in messages.messages])])
+    data = {"content" : contents}
 
-# @app.post("/api/get_result")
-# async def get_result(messages: Messages):
-#     # DB 서버에서 문자열 뽑아오기
-#     # chats = await get_chats()
-#     # messages = " ".join([chat.content for chat in chats])
-#     print(messages.dict())
+    response = httpx.post("http://home.sung4854.com:8000/api/predict", json=data)
+    response.raise_for_status()
+    result = response.json()
+    job_info = await get_job_categories(result['result'])
+    print(job_info)
 
-    # print(messages.messages)
-    # messages = " ".join([message.content for message in messages.messages])
-    # data = {"content" : messages}
-    #
-    # response = httpx.post("http://home.sung4854.com:8000/api/predict", json=data)
-    # response.raise_for_status()
-    # result = response.json()
-    # job_info = await get_job_categories(result['result'])
-    # print(job_info)
-    #
-    # return job_info
+    return job_info
 
 # @app.post("/api/get_result")
 # async def get_result():
