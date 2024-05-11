@@ -22,7 +22,13 @@ function App() {
         try {
             let response;
             if (inputMessage.includes("이제 직업을 추천해주세요")) {
-                response = await fetch('http://develop.sung4854.com:5000/api/get_result');
+                response = await fetch('http://develop.sung4854.com:5000/api/get_result', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ messages: history }),
+                });
             } else {
                 response = await fetch('http://develop.sung4854.com:5000/api/chat', {
                     method: 'POST',

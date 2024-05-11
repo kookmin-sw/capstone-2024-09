@@ -52,12 +52,14 @@ async def chat(message: Message):
     return {"response": return_mes}
 
 
+
 @app.post("/api/get_result")
-async def get_result():
+async def get_result(messages: Messages):
     # DB 서버에서 문자열 뽑아오기
     # chats = await get_chats()
     # messages = " ".join([chat.content for chat in chats])
-    messages = "나는 축구와 농구를 좋아해! 그리고 누군가를 가르치는 것도 좋아해서 축구코치나 감독을 하고 싶은데 어떤 것을 준비해야 해?"
+    print(messages.messages)
+    messages = " ".join([message.content for message in messages.messages])
     data = {"content" : messages}
 
     response = httpx.post("http://home.sung4854.com:8000/api/predict", json=data)
@@ -67,3 +69,19 @@ async def get_result():
     print(job_info)
 
     return job_info
+
+# @app.post("/api/get_result")
+# async def get_result():
+#     # DB 서버에서 문자열 뽑아오기
+#     # chats = await get_chats()
+#     # messages = " ".join([chat.content for chat in chats])
+#     messages = "나는 축구와 농구를 좋아해! 그리고 누군가를 가르치는 것도 좋아해서 축구코치나 감독을 하고 싶은데 어떤 것을 준비해야 해?"
+#     data = {"content" : messages}
+#
+#     response = httpx.post("http://home.sung4854.com:8000/api/predict", json=data)
+#     response.raise_for_status()
+#     result = response.json()
+#     job_info = await get_job_categories(result['result'])
+#     print(job_info)
+#
+#     return job_info
