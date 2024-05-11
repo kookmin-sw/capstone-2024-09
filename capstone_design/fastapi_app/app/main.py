@@ -30,11 +30,8 @@ app.add_middleware(
 
 
 class Message(BaseModel):
-    role: str
-    content: str
+    messages: Dict[str, Union[str, str]]
 
-class Messages(BaseModel):
-    messages: List[Message]
 
 
 @app.get("/")
@@ -52,9 +49,14 @@ async def chat(message: Message):
     return {"response": return_mes}
 
 
+
+from fastapi import Request
+
 @app.post("/api/get_result")
-async def get_result(messages: Messages):
-    contents = " ".join([message.content for message in messages.messages])
+async def get_result(request: Request):
+    data = await request.json()
+    messages = data.get('messages', [])
+    contents = " ".join([message['content'] for message in messages])
     data = {"content" : contents}
 
     response = httpx.post("http://home.sung4854.com:8000/api/predict", json=data)
