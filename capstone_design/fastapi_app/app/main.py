@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from typing import List, Dict, Union
+from collections import Counter
 import httpx
 
 from fastapi import FastAPI
@@ -57,8 +58,18 @@ from fastapi import Request
 async def get_result(request: Request):
     data = await request.json()
     messages = data.get('messages', [])
+    contents = []
+    for message in messages:
+        try:
+            contents.append(message['content'])
+        except KeyError:
+            return {"message": "상담을 진행해주세요."}
     contents = " ".join([message['content'] for message in messages])
     data = {"content" : contents}
+
+    word_counts = Counter(contents.split())
+    most_common_words = word_counts.most_common(3)
+    print(most_common_words)
 
     response = httpx.post("http://home.sung4854.com:8000/api/predict", json=data)
     response.raise_for_status()
