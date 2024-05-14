@@ -8,7 +8,8 @@ from fastapi.responses import UJSONResponse
 from pydantic import BaseModel
 
 from .open_ai import get_chat_response
-from .db_query import save_chats, get_job_categories, get_chats
+from .db_query import save_chats, get_job_categories
+from .job_info_detail import get_data_from_api
 
 app = FastAPI(default_response_class=UJSONResponse)
 
@@ -64,21 +65,6 @@ async def get_result(request: Request):
     result = response.json()
     job_info = await get_job_categories(result['result'])
     print(job_info)
+    get_data_from_api(job_info['career_id'])
 
     return job_info
-
-# @app.post("/api/get_result")
-# async def get_result():
-#     # DB 서버에서 문자열 뽑아오기
-#     # chats = await get_chats()
-#     # messages = " ".join([chat.content for chat in chats])
-#     messages = "나는 축구와 농구를 좋아해! 그리고 누군가를 가르치는 것도 좋아해서 축구코치나 감독을 하고 싶은데 어떤 것을 준비해야 해?"
-#     data = {"content" : messages}
-#
-#     response = httpx.post("http://home.sung4854.com:8000/api/predict", json=data)
-#     response.raise_for_status()
-#     result = response.json()
-#     job_info = await get_job_categories(result['result'])
-#     print(job_info)
-#
-#     return job_info
