@@ -39,7 +39,7 @@ async def get_job_categories(id: int):
         result = connection.execute(query, {'id': id})
         rows = result.fetchall()
         print(rows)
-        return {"job": rows[0][1], "category": rows[0][2]}
+        return {"job": rows[0][1], "category": rows[0][2], "career_id": rows[0][3]}
 
 async def get_chats():
     session = SessionLocal()

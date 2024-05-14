@@ -21,7 +21,7 @@ function App() {
 
         try {
             let response;
-            if (inputMessage.includes("이제 직업을 추천해주세요")) {
+            if (inputMessage.includes("이제 직업을 추천해")) {
                 response = await fetch('http://develop.sung4854.com:5000/api/get_result', {
                     method: 'POST',
                     headers: {
