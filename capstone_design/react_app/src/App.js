@@ -34,7 +34,7 @@ function App() {
                 if (response.ok) {
                     const data = await response.json();
                     const consultantMessage = { role: 'consultant', content: data.response };
-                    setHistory([...history, newHistory, consultantMessage]); // consultMessage도 함께 추가
+                    // setHistory([...history, newHistory, consultantMessage]); // consultMessage도 함께 추가
 
                     // 분석 결과를 사용하여 직업 정보를 가져오는 /api/get_job_info 호출
                     response = await fetch('http://develop.sung4854.com:5000/api/get_job_info', {
