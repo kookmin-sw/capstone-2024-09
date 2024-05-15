@@ -46,6 +46,8 @@ async def chat(request: Request, message: Message):
     msg = message.messages['content']
     job_list = request.session.get("job_list")
 
+    print(job_list)
+
     if job_list:
         if msg.isdigit():
             job_name = list(job_list.keys())[int(msg)]
@@ -66,6 +68,7 @@ async def chat(request: Request, message: Message):
 
 @app.get("/api/check_session")
 async def check_session(request: Request):
+    print(dict(request.session))
     return {"session_data": dict(request.session)}
 
 @app.post("/api/test_seesion")

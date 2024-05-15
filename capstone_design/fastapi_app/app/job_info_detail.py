@@ -37,6 +37,9 @@ def get_detail(seq):
     work_data = [item['work'] for item in data.get('worklist', []) if 'work' in item]
     rel_job_data = [item['rel_job_nm'] for item in data.get('searchJobCd', []) if 'rel_job_nm' in item]
     depart_data = [item['depart_name'] for item in data.get('departList', []) if 'depart_name' in item]
-    depart_data = [item['certi'] for item in data.get('certiList', []) if 'certi' in item]
+    certi_data = [item['certi'] for item in data.get('certiList', []) if 'certi' in item]
+    forcast_data = [item['forecast'] for item in data.get('forecastList', []) if 'forecast' in item]
+
+
 
     return work_data
