@@ -1,7 +1,7 @@
 import requests, os
 
 api_key = os.getenv('career_api_key')
-def get_list(searchJobNm, searchAptdCodes):
+def get_list(searchAptdCodes, searchJobNm):
     page_index = 1
     job_dict = {}
 
