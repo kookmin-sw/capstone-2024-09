@@ -26,3 +26,9 @@ def get_data_from_api(searchAptdCodes: int, words):
     for word in words:
         job_dict.update(get_list(searchAptdCodes, word))
     return job_dict
+
+def get_detail(seq):
+    url = f"http://www.career.go.kr/cnet/openapi/getOpenApi?apiKey={api_key}&svcType=api&svcCode=JOB_VIEW&contentType=json&gubun=job_dic_list&jobdicSeq={seq}"
+    response = requests.get(url)
+    response.raise_for_status()
+    data = response.json()
