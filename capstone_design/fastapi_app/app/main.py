@@ -10,7 +10,7 @@ from starlette.middleware.sessions import SessionMiddleware
 
 from .open_ai import get_chat_response
 from .db_query import save_chats, get_job_categories
-from .job_info_detail import get_data_from_api
+from .job_info_detail import get_data_from_api, get_detail
 
 session_secret_key = os.getenv('session_secret_key')
 app = FastAPI(default_response_class=UJSONResponse)
@@ -76,6 +76,10 @@ def set_session(request: Request):
     job_list = {"test": "test"}
     request.session["job_list"] = job_list
 
+@app.get("/api/reset_session")
+async def reset_session(request: Request):
+    request.session.clear()
+    return {"message": "Session has been reset."}
 
 @app.post("/api/predict")
 async def predict(request: Request):
@@ -118,3 +122,10 @@ async def get_job_info(request: Request):
     contents += "\n\n위의 직업군 중에서 조금 더 자세하게 알고 싶은 직업이 있으신가요?? 번호를 입력해주세요!"
 
     return {"response": contents}
+
+# main.py
+@app.get("/api/get_job_detail/{job_code}")
+async def get_job_detail(job_code: int):
+    job_detail = get_detail(job_code)
+    print(job_detail)
+    return {"response": job_detail}

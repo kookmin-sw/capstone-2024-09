@@ -1,5 +1,5 @@
 // App 컴포넌트
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import background from "./background-blurry-restaurant-shop-interior.jpg";
 import './App.css';
 import ChatBox from './components/ChatBox';
@@ -12,6 +12,22 @@ function App() {
     const [inputMessage, setInputMessage] = useState('');   // 사용자 입력을 관리하는 상태 변수 (생성된 응답 기록)
     const [loading, setLoading] = useState(false);   // 생성형 ai로부터 응답을 기다리고 있는지의 여부를 나타내는 상태 변수
 
+    const handleRefresh = async () => {
+        await fetch('http://develop.sung4854.com:5000/api/reset_session', {
+            method: 'GET',
+        });
+    };
+
+    useEffect(() => {
+        // 페이지 새로고침 이벤트 리스너 등록
+        window.addEventListener('beforeunload', handleRefresh);
+
+        // 컴포넌트 언마운트 시 이벤트 리스너 해제
+        return () => {
+            window.removeEventListener('beforeunload', handleRefresh);
+        };
+    }, []);
+
     // 메시지 전송 핸들러 함수 (사용자 입력을 처리하고 API를 호출하는 함수)
     const handleSubmit = async () => {
         const newHistory = { role: 'user', content: inputMessage };
@@ -21,7 +37,7 @@ function App() {
 
         try {
             let response;
-            if (inputMessage.includes("이제 직업을 추천해")) {
+            if (inputMessage.includes("직업을 추천해")) {
                 // 분석 결과를 가져오는 /api/predict 호출
                 let response = await fetch('http://develop.sung4854.com:5000/api/predict', {
                     method: 'POST',
@@ -30,6 +46,9 @@ function App() {
                     },
                     body: JSON.stringify({ messages: history }),
                 });
+
+                // 여기서 마지막 멘트도 history 넣어주기
+                setHistory([...history, newHistory]);
 
                 if (response.ok) {
                     const data = await response.json();
@@ -54,6 +73,19 @@ function App() {
                     }
                 } else {
                     throw new Error('Network response was not ok');
+                }
+            } else if (!isNaN(inputMessage)) { // 사용자 입력이 숫자인 경우
+                // 세션을 확인하여 직업 추천을 받았는지 확인
+                const sessionResponse = await fetch(`http://develop.sung4854.com:5000/api/check_session`, {
+                    method: 'GET',
+                });
+                const sessionData = await sessionResponse.json();
+                if (sessionData.session_data.job_list) { // 직업 추천을 받았다면
+                    response = await fetch(`http://develop.sung4854.com:5000/api/get_job_detail/${inputMessage}`, {
+                        method: 'GET',
+                    });
+                } else {
+                    throw new Error('직업 추천을 받지 않았습니다.');
                 }
             } else {
                 response = await fetch('http://develop.sung4854.com:5000/api/chat', {
