@@ -2,6 +2,13 @@
 import React from 'react';
 
 function Message({ index, role, content }) {
+    const contentLines = content.split('\n').map((line, i) => (
+        <React.Fragment key={i}>
+            {line}
+            <br/>
+        </React.Fragment>
+    ));
+
     return (
         <div key={index}
              style={{
@@ -20,7 +27,7 @@ function Message({ index, role, content }) {
                     borderRadius: '20px',
                     backgroundColor: role === 'user' ? '#e6f7ff' : '#f0f0f0'
                 }}>
-                <strong>{role === 'user' ? '' : 'AI 상담사 : '}</strong> {content}
+                <strong>{role === 'user' ? '' : 'AI 상담사 : '}</strong> {contentLines}
             </div>
         </div>
     );
