@@ -49,6 +49,15 @@ async def chat(message: Message):
     await save_chats(role, return_mes) # AI의 답변에 대한 저장
     return {"response": return_mes}
 
+@app.get("/api/check_session")
+async def check_session(request: Request):
+    return {"session_data": dict(request.session)}
+
+@app.post("/api/test_seesion")
+def set_session(request: Request):
+    job_list = {"test": "test"}
+    request.session["job_list"] = job_list
+
 
 job_list = [] # 추 후 DB에 저장하도록 변경
 
@@ -76,6 +85,8 @@ async def get_result(request: Request):
 
     job_info = await get_job_categories(result['result'])
     job_list = get_data_from_api(job_info['searchAptdCodes'], result['freq'][0][1])
+
+    print(job_list)
 
     if len(job_list) == 0:
         return {"response": "조금 더 자세한 질문을 해주시겠어요?"}
