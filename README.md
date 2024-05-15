@@ -10,14 +10,14 @@ We use chatbots to provide career counseling to students, recommend jobs they pr
 
 ## ⚙ 기술 스택
 ### 🖥 Front-End
-<img alt="Html" src ="https://img.shields.io/badge/streamlit-FFFFFF.svg?&style=for-the-badge&logo=streamlit&logoColor=red"/>
+<img alt="React" src ="https://img.shields.io/badge/react-2A2A2A.svg?&style=for-the-badge&logo=react&logoColor=blue"/>
 
 ### 🖥 Back-End
-<img alt="Html" src ="https://img.shields.io/badge/streamlit-FFFFFF.svg?&style=for-the-badge&logo=streamlit&logoColor=red"/> <img alt="Html" src ="https://img.shields.io/badge/nginx-009639.svg?&style=for-the-badge&logo=nginx&logoColor=green"/> <img alt="Html" src ="https://img.shields.io/badge/AWS EC2-FF9900.svg?&style=for-the-badge&logo=amazonec2&logoColor=green"/>\
-<img alt="Html" src ="https://img.shields.io/badge/GHCR-181717.svg?&style=for-the-badge&logo=github&logoColor=white"/><img alt="Html" src ="https://img.shields.io/badge/Docker-2496ED.svg?&style=for-the-badge&logo=Docker&logoColor=white"/> <img alt="Html" src ="https://img.shields.io/badge/Github Actions-2088FF.svg?&style=for-the-badge&logo=Github Actions&logoColor=white"/>
+<img alt="streamlit" src ="https://img.shields.io/badge/streamlit-FFFFFF.svg?&style=for-the-badge&logo=streamlit&logoColor=red"/> <img alt="nginx" src ="https://img.shields.io/badge/nginx-009639.svg?&style=for-the-badge&logo=nginx&logoColor=green"/> <img alt="AWS" src ="https://img.shields.io/badge/AWS EC2-FF9900.svg?&style=for-the-badge&logo=amazonec2&logoColor=green"/>\
+<img alt="GHCR" src ="https://img.shields.io/badge/GHCR-181717.svg?&style=for-the-badge&logo=github&logoColor=white"/><img alt="Docker" src ="https://img.shields.io/badge/Docker-2496ED.svg?&style=for-the-badge&logo=Docker&logoColor=white"/> <img alt="github action" src ="https://img.shields.io/badge/Github Actions-2088FF.svg?&style=for-the-badge&logo=Github Actions&logoColor=white"/>
 
 ### 🖥 AI
-<img alt="Html" src="https://img.shields.io/badge/scikit learn-F7931E.svg?style=for-the-badge&logo=scikitlearn&logoColor=white"> <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white"> <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white">\
+<img alt="scikit learn" src="https://img.shields.io/badge/scikit learn-F7931E.svg?style=for-the-badge&logo=scikitlearn&logoColor=white"> <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white"> <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white">\
 <img src="https://img.shields.io/badge/google colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white"> <img src="https://img.shields.io/badge/numpy-013243?style=for-the-badge&logo=numpy&logoColor=white"> <img src="https://img.shields.io/badge/json-000000?style=for-the-badge&logo=json&logoColor=white">
 
 ### 🖥 협업
