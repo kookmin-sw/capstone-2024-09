@@ -36,6 +36,4 @@ def get_detail(seq):
 
     work_data = [item['work'] for item in data.get('worklist', []) if 'work' in item]
 
-s
-
     return work_data
