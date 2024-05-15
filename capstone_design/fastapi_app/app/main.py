@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from typing import List, Dict, Union
+from typing import Dict, Union
 from collections import Counter
 import httpx
 
@@ -72,13 +72,13 @@ async def get_result(request: Request):
     result = response.json()
     job_info = await get_job_categories(result['result'])
     print(job_info)
-    job_list = get_data_from_api(job_info['career_id'])
+    job_list = get_data_from_api(job_info['searchAptdCodes'], result['freq'][0][1])
 
     contents = f"상담 결과 {job_info['job']}이 적합한 직업군 이라고 생각합니다. 해당 관련직에 관련된 직업에 대해 말씀드리겠습니다."
 
-    for job_name, job_info in job_list.items():
+    for index, (job_name, job_info) in enumerate(job_list.items()):
         related_job_name = job_info[1]
-        contents += f"\n직업군: {job_name}, 관련 직업: {related_job_name}"
+        contents += f"\n\n {index}. {job_name}, [{related_job_name}]"
 
     contents += "\n\n위의 직업군 중에서 조금 더 자세하게 알고 싶은 직업이 있으신가요??"
 

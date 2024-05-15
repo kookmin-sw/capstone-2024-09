@@ -38,7 +38,7 @@ async def get_job_categories(id: int):
         query = text("SELECT * FROM jobs WHERE id = :id")
         result = connection.execute(query, {'id': id})
         rows = result.fetchall()
-        return {"job": rows[0][1], "category": rows[0][2], "career_id": rows[0][3]}
+        return {"job": rows[0][1], "category": rows[0][2], "searchAptdCodes": rows[0][3]}
 
 async def get_chats():
     session = SessionLocal()
