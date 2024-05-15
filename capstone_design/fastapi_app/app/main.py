@@ -54,13 +54,14 @@ async def chat(request: Request, message: Message):
             related_job_name = job_info[1]
             contents = f"{job_name}에 대한 정보를 알려드리겠습니다.\n\n"
             contents += f"직업 코드: {job_code}\n관련 직업: {related_job_name}"
+            print(contents)
             return {"response": contents}
         else:
             return {"response": "숫자로 입력해주세요."}
-
-    return_mes = get_chat_response(msg)
-    await save_chats(role, msg) # 사용자의 질문 저장
-    await save_chats(role, return_mes) # AI의 답변에 대한 저장
+    else:
+        return_mes = get_chat_response(msg)
+        await save_chats(role, msg) # 사용자의 질문 저장
+        await save_chats(role, return_mes) # AI의 답변에 대한 저장
     return {"response": return_mes}
 
 @app.get("/api/check_session")
@@ -93,10 +94,6 @@ async def get_job_info(request: Request):
     result = data.get('result', None)
     words = data.get('words', None)
 
-    print(f"result : {result}")
-    print(f"words : {words}")
-
-
     if result is None or words is None:
         return {"message": "Invalid request data."}
 
@@ -114,7 +111,7 @@ async def get_job_info(request: Request):
 
     for index, (job_name, job_info) in enumerate(job_list.items()):
         related_job_name = job_info[1]
-        contents += f"\n\n {index}. {job_name}, [{related_job_name}]"
+        contents += f"\n\n {index}. {job_name}({related_job_name})"
     contents += "\n\n위의 직업군 중에서 조금 더 자세하게 알고 싶은 직업이 있으신가요?? 번호를 입력해주세요!"
 
     return {"response": contents}

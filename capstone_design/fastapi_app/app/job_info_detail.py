@@ -35,5 +35,8 @@ def get_detail(seq):
     data = response.json()
 
     work_data = [item['work'] for item in data.get('worklist', []) if 'work' in item]
+    rel_job_data = [item['rel_job_nm'] for item in data.get('searchJobCd', []) if 'rel_job_nm' in item]
+    depart_data = [item['depart_name'] for item in data.get('departList', []) if 'depart_name' in item]
+    depart_data = [item['certi'] for item in data.get('certiList', []) if 'certi' in item]
 
     return work_data
