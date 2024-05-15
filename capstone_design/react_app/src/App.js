@@ -28,7 +28,7 @@ function App() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ messages: newHistory }),
+                    body: JSON.stringify({ messages: history }),
                 });
 
                 if (response.ok) {
