@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
 from typing import Dict, Union
-from collections import Counter
-import httpx
+import httpx, os
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import UJSONResponse
 from pydantic import BaseModel
+from starlette.middleware.sessions import SessionMiddleware
 
 from .open_ai import get_chat_response
 from .db_query import save_chats, get_job_categories
 from .job_info_detail import get_data_from_api
 
+session_secret_key = os.getenv('session_secret_key')
 app = FastAPI(default_response_class=UJSONResponse)
+app.add_middleware(SessionMiddleware, secret_key="session_secret_key")
 
 origins = [
     "http://localhost:3000",  # React 앱의 도메인
@@ -63,23 +65,27 @@ async def get_result(request: Request):
     contents = " ".join([message['content'] for message in messages])
     data = {"content" : contents}
 
-    word_counts = Counter(contents.split())
-    most_common_words = word_counts.most_common(3)
-    print(most_common_words)
-
+    # 분류형 AI에 분석 요청
     response = httpx.post("http://home.sung4854.com:8000/api/predict", json=data)
     response.raise_for_status()
     result = response.json()
+
+    # 빈도수가 동일한 단어가 나올 경우 조금 더 자세한 정보 받기
+    if result['freq'][0][1] == result['freq'][1][1]:
+        return {"response": "조금 더 자세한 질문을 해주시겠어요?"}
+
     job_info = await get_job_categories(result['result'])
-    print(job_info)
     job_list = get_data_from_api(job_info['searchAptdCodes'], result['freq'][0][1])
 
+    if len(job_list) == 0:
+        return {"response": "조금 더 자세한 질문을 해주시겠어요?"}
+
+    request.session["job_list"] = job_list
     contents = f"상담 결과 {job_info['job']}이 적합한 직업군 이라고 생각합니다. 해당 관련직에 관련된 직업에 대해 말씀드리겠습니다."
 
     for index, (job_name, job_info) in enumerate(job_list.items()):
         related_job_name = job_info[1]
         contents += f"\n\n {index}. {job_name}, [{related_job_name}]"
-
     contents += "\n\n위의 직업군 중에서 조금 더 자세하게 알고 싶은 직업이 있으신가요??"
 
     print(contents)
