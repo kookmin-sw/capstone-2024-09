@@ -41,9 +41,23 @@ def read_root():
 
 
 @app.post("/api/chat")
-async def chat(message: Message):
+async def chat(request: Request, message: Message):
     role = message.messages['role']
     msg = message.messages['content']
+    job_list = request.session.get("job_list")
+
+    if job_list:
+        if msg.isdigit():
+            job_name = list(job_list.keys())[int(msg)]
+            job_info = job_list[job_name]
+            job_code = job_info[0]
+            related_job_name = job_info[1]
+            contents = f"{job_name}에 대한 정보를 알려드리겠습니다.\n\n"
+            contents += f"직업 코드: {job_code}\n관련 직업: {related_job_name}"
+            return {"response": contents}
+        else:
+            return {"response": "숫자로 입력해주세요."}
+
     return_mes = get_chat_response(msg)
     await save_chats(role, msg) # 사용자의 질문 저장
     await save_chats(role, return_mes) # AI의 답변에 대한 저장
@@ -57,9 +71,6 @@ async def check_session(request: Request):
 def set_session(request: Request):
     job_list = {"test": "test"}
     request.session["job_list"] = job_list
-
-
-job_list = [] # 추 후 DB에 저장하도록 변경
 
 @app.post("/api/get_result")
 async def get_result(request: Request):
@@ -80,16 +91,17 @@ async def get_result(request: Request):
     result = response.json()
 
     # 빈도수가 동일한 단어가 나올 경우 조금 더 자세한 정보 받기
-    if result['freq'][0][1] == result['freq'][1][1]:
-        return {"response": "조금 더 자세한 질문을 해주시겠어요?"}
+    # if result['freq'][0][1] == result['freq'][1][1]:
+    #     return {"response": "조금 더 자세한 질문을 해주시겠어요?"}
 
     job_info = await get_job_categories(result['result'])
-    job_list = get_data_from_api(job_info['searchAptdCodes'], result['freq'][0][1])
+    # job_list = get_data_from_api(job_info['searchAptdCodes'], result['freq'][0][1])
+    job_list = get_data_from_api(job_info['searchAptdCodes'])
 
     print(job_list)
 
-    if len(job_list) == 0:
-        return {"response": "조금 더 자세한 질문을 해주시겠어요?"}
+    # if len(job_list) == 0:
+    #     return {"response": "조금 더 자세한 질문을 해주시겠어요?"}
 
     request.session["job_list"] = job_list
     contents = f"상담 결과 {job_info['job']}이 적합한 직업군 이라고 생각합니다. 해당 관련직에 관련된 직업에 대해 말씀드리겠습니다."
@@ -97,7 +109,7 @@ async def get_result(request: Request):
     for index, (job_name, job_info) in enumerate(job_list.items()):
         related_job_name = job_info[1]
         contents += f"\n\n {index}. {job_name}, [{related_job_name}]"
-    contents += "\n\n위의 직업군 중에서 조금 더 자세하게 알고 싶은 직업이 있으신가요??"
+    contents += "\n\n위의 직업군 중에서 조금 더 자세하게 알고 싶은 직업이 있으신가요?? 번호를 입력해주세요!"
 
     print(contents)
 
