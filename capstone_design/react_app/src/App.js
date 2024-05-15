@@ -22,13 +22,39 @@ function App() {
         try {
             let response;
             if (inputMessage.includes("이제 직업을 추천해")) {
-                response = await fetch('http://develop.sung4854.com:5000/api/get_result', {
+                // 분석 결과를 가져오는 /api/predict 호출
+                let response = await fetch('http://develop.sung4854.com:5000/api/predict', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ messages: history }),
+                    body: JSON.stringify({ messages: newHistory }),
                 });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const consultantMessage = { role: 'consultant', content: data.response };
+                    setHistory([...history, newHistory, consultantMessage]); // consultMessage도 함께 추가
+
+                    // 분석 결과를 사용하여 직업 정보를 가져오는 /api/get_job_info 호출
+                    response = await fetch('http://develop.sung4854.com:5000/api/get_job_info', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ result: data.response.result, words: data.response.words }),
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const consultantMessage = { role: 'consultant', content: data.response };
+                        setHistory([...history, consultantMessage]); // consultMessage 추가
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                } else {
+                    throw new Error('Network response was not ok');
+                }
             } else {
                 response = await fetch('http://develop.sung4854.com:5000/api/chat', {
                     method: 'POST',

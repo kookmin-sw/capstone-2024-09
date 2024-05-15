@@ -72,16 +72,11 @@ def set_session(request: Request):
     job_list = {"test": "test"}
     request.session["job_list"] = job_list
 
-@app.post("/api/get_result")
-async def get_result(request: Request):
+
+@app.post("/api/predict")
+async def predict(request: Request):
     data = await request.json()
     messages = data.get('messages', [])
-    contents = []
-    for message in messages:
-        try:
-            contents.append(message['content'])
-        except KeyError:
-            return {"message": "상담을 진행해주세요."}
     contents = " ".join([message['content'] for message in messages])
     data = {"content" : contents}
 
@@ -89,14 +84,20 @@ async def get_result(request: Request):
     response = httpx.post("http://home.sung4854.com:8000/api/predict", json=data)
     response.raise_for_status()
     result = response.json()
-    print(result)
 
-    job_info = await get_job_categories(result['result'])
-    print(job_info)
+    return {"response": result}
 
-    job_list = get_data_from_api(job_info['searchAptdCodes'], result['words'])
+@app.post("/api/get_job_info")
+async def get_job_info(request: Request):
+    data = await request.json()
+    result = data.get('result', None)
+    words = data.get('words', None)
 
-    print(job_list)
+    if result is None or words is None:
+        return {"message": "Invalid request data."}
+
+    job_info = await get_job_categories(result)
+    job_list = get_data_from_api(job_info['searchAptdCodes'], words)
 
     if len(job_list) == 0:
         return {"response": "조금 더 자세한 질문을 해주시겠어요?"}
@@ -109,6 +110,44 @@ async def get_result(request: Request):
         contents += f"\n\n {index}. {job_name}, [{related_job_name}]"
     contents += "\n\n위의 직업군 중에서 조금 더 자세하게 알고 싶은 직업이 있으신가요?? 번호를 입력해주세요!"
 
-    print(contents)
-
     return {"response": contents}
+# @app.post("/api/get_result")
+# async def get_result(request: Request):
+#     data = await request.json()
+#     messages = data.get('messages', [])
+#     contents = []
+#     for message in messages:
+#         try:
+#             contents.append(message['content'])
+#         except KeyError:
+#             return {"message": "상담을 진행해주세요."}
+#     contents = " ".join([message['content'] for message in messages])
+#     data = {"content" : contents}
+#
+#     # 분류형 AI에 분석 요청
+#     response = httpx.post("http://home.sung4854.com:8000/api/predict", json=data)
+#     response.raise_for_status()
+#     result = response.json()
+#     print(result)
+#
+#     job_info = await get_job_categories(result['result'])
+#     print(job_info)
+#
+#     job_list = get_data_from_api(job_info['searchAptdCodes'], result['words'])
+#
+#     print(job_list)
+#
+#     if len(job_list) == 0:
+#         return {"response": "조금 더 자세한 질문을 해주시겠어요?"}
+#
+#     request.session["job_list"] = job_list
+#     contents = f"상담 결과 {job_info['job']}이 적합한 직업군 이라고 생각합니다. 해당 관련직에 관련된 직업에 대해 말씀드리겠습니다."
+#
+#     for index, (job_name, job_info) in enumerate(job_list.items()):
+#         related_job_name = job_info[1]
+#         contents += f"\n\n {index}. {job_name}, [{related_job_name}]"
+#     contents += "\n\n위의 직업군 중에서 조금 더 자세하게 알고 싶은 직업이 있으신가요?? 번호를 입력해주세요!"
+#
+#     print(contents)
+#
+#     return {"response": contents}
