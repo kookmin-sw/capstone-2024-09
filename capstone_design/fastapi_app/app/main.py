@@ -90,18 +90,13 @@ async def get_result(request: Request):
     response.raise_for_status()
     result = response.json()
 
-    # 빈도수가 동일한 단어가 나올 경우 조금 더 자세한 정보 받기
-    # if result['freq'][0][1] == result['freq'][1][1]:
-    #     return {"response": "조금 더 자세한 질문을 해주시겠어요?"}
-
     job_info = await get_job_categories(result['result'])
-    # job_list = get_data_from_api(job_info['searchAptdCodes'], result['freq'][0][1])
-    job_list = get_data_from_api(job_info['searchAptdCodes'])
+    job_list = get_data_from_api(job_info['searchAptdCodes'], result['words'])
 
     print(job_list)
 
-    # if len(job_list) == 0:
-    #     return {"response": "조금 더 자세한 질문을 해주시겠어요?"}
+    if len(job_list) == 0:
+        return {"response": "조금 더 자세한 질문을 해주시겠어요?"}
 
     request.session["job_list"] = job_list
     contents = f"상담 결과 {job_info['job']}이 적합한 직업군 이라고 생각합니다. 해당 관련직에 관련된 직업에 대해 말씀드리겠습니다."
