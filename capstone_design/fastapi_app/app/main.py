@@ -3,7 +3,7 @@ from typing import List, Dict, Union
 from collections import Counter
 import httpx
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import UJSONResponse
 from pydantic import BaseModel
@@ -30,11 +30,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 class Message(BaseModel):
     messages: Dict[str, Union[str, str]]
-
-
 
 @app.get("/")
 def read_root():
@@ -51,8 +48,7 @@ async def chat(message: Message):
     return {"response": return_mes}
 
 
-
-from fastapi import Request
+job_list = [] # 추 후 DB에 저장하도록 변경
 
 @app.post("/api/get_result")
 async def get_result(request: Request):
@@ -76,6 +72,14 @@ async def get_result(request: Request):
     result = response.json()
     job_info = await get_job_categories(result['result'])
     print(job_info)
-    get_data_from_api(job_info['career_id'])
+    job_list = get_data_from_api(job_info['career_id'])
 
-    return job_info
+    contents = f"상담 결과 {job_info['job']}이 적합한 직업군 이라고 생각합니다. 해당 관련직에 관련된 직업에 대해 말씀드리겠습니다."
+
+    for job_name, job_info in job_list.items():
+        related_job_name = job_info[1]
+        contents += f"\n직업군: {job_name}, 관련 직업: {related_job_name}"
+
+    contents = "\n\n위의 직업군 중에서 조금 더 자세하게 알고 싶은 직업이 있으신가요??"
+
+    return {"contents": contents}
