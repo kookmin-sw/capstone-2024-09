@@ -80,6 +80,8 @@ async def get_result(request: Request):
         related_job_name = job_info[1]
         contents += f"\n직업군: {job_name}, 관련 직업: {related_job_name}"
 
-    contents = "\n\n위의 직업군 중에서 조금 더 자세하게 알고 싶은 직업이 있으신가요??"
+    contents += "\n\n위의 직업군 중에서 조금 더 자세하게 알고 싶은 직업이 있으신가요??"
 
-    return {"contents": contents}
+    print(contents)
+
+    return {"response": contents}
