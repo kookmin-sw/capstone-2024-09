@@ -10,6 +10,7 @@ def get_list(searchJobNm, searchAptdCodes):
         response = requests.get(url)
         response.raise_for_status()  # Check for HTTP errors
         data = response.json()
+        print(data)
         if not data['jobs']:
             break
         for job in data['jobs']:
@@ -32,3 +33,9 @@ def get_detail(seq):
     response = requests.get(url)
     response.raise_for_status()
     data = response.json()
+
+    work_data = [item['work'] for item in data.get('worklist', []) if 'work' in item]
+
+s
+
+    return work_data

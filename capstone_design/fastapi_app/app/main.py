@@ -101,6 +101,7 @@ async def get_job_info(request: Request):
         return {"message": "Invalid request data."}
 
     job_info = await get_job_categories(result)
+    print(job_info)
     job_list = get_data_from_api(job_info['searchAptdCodes'], words)
 
     print(f"job_list : {job_list}")
