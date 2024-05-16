@@ -13,9 +13,9 @@ We use chatbots to provide career counseling to students, recommend jobs they pr
 <img alt="React" src ="https://img.shields.io/badge/react-2A2A2A.svg?&style=for-the-badge&logo=react&logoColor=blue"/>
 
 ### 🖥 Back-End
-<img alt="streamlit" src ="https://img.shields.io/badge/fastapi-FFFFFF.svg?&style=for-the-badge&logo=fastapi&logoColor=red"/> <img alt="AWS" src ="https://img.shields.io/badge/AWS EC2-FF9900.svg?&style=for-the-badge&logo=amazonec2&logoColor=green"/>
-<img alt="AWS" src ="https://img.shields.io/badge/AWS RDS-527FFF.svg?&style=for-the-badge&logo=amazonrds&logoColor=green"/>
-<img alt="GHCR" src ="https://img.shields.io/badge/GHCR-181717.svg?&style=for-the-badge&logo=github&logoColor=white"/><img alt="Docker" src ="https://img.shields.io/badge/Docker-2496ED.svg?&style=for-the-badge&logo=Docker&logoColor=white"/> <img alt="github action" src ="https://img.shields.io/badge/Github Actions-2088FF.svg?&style=for-the-badge&logo=Github Actions&logoColor=white"/>
+<img alt="streamlit" src="https://img.shields.io/badge/fastapi-FFFFFF.svg?&style=for-the-badge&logo=fastapi&logoColor=red"/>  
+<img alt="AWS" src="https://img.shields.io/badge/AWS EC2-FF9900.svg?&style=for-the-badge&logo=amazonec2&logoColor=green"/><img alt="AWS" src="https://img.shields.io/badge/AWS RDS-527FFF.svg?&style=for-the-badge&logo=amazonrds&logoColor=green"/>
+<img alt="GHCR" src="https://img.shields.io/badge/GHCR-181717.svg?&style=for-the-badge&logo=github&logoColor=white"/><img alt="Docker" src="https://img.shields.io/badge/Docker-2496ED.svg?&style=for-the-badge&logo=Docker&logoColor=white"/> <img alt="github action" src="https://img.shields.io/badge/Github Actions-2088FF.svg?&style=for-the-badge&logo=Github Actions&logoColor=white"/>
 
 ### 🖥 AI
 <img alt="scikit learn" src="https://img.shields.io/badge/scikit learn-F7931E.svg?style=for-the-badge&logo=scikitlearn&logoColor=white"> <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white"> <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white">\
