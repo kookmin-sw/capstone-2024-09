@@ -127,5 +127,5 @@ async def get_job_info(request: Request):
 @app.get("/api/get_job_detail/{job_code}")
 async def get_job_detail(job_code: int):
     job_detail = get_detail(job_code)
-    print(job_detail)
+    print(f"{job_code}에 대한 정보 : {job_detail}")
     return {"response": job_detail}

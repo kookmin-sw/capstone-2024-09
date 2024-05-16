@@ -47,9 +47,6 @@ function App() {
                     body: JSON.stringify({ messages: history }),
                 });
 
-                // 여기서 마지막 멘트도 history 넣어주기
-                setHistory([...history, newHistory]);
-
                 if (response.ok) {
                     const data = await response.json();
                     const consultantMessage = { role: 'consultant', content: data.response };
@@ -67,7 +64,7 @@ function App() {
                     if (response.ok) {
                         const data = await response.json();
                         const consultantMessage = { role: 'consultant', content: data.response };
-                        setHistory([...history, consultantMessage]); // consultMessage 추가
+                        setHistory([...history, newHistory, consultantMessage]); // consultMessage 추가
                     } else {
                         throw new Error('Network response was not ok');
                     }

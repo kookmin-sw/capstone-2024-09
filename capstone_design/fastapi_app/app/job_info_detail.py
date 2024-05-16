@@ -29,7 +29,7 @@ def get_data_from_api(searchAptdCodes: int, words):
     return job_dict
 
 def get_detail(seq):
-    url = f"http://www.career.go.kr/cnet/openapi/getOpenApi?apiKey={api_key}&svcType=api&svcCode=JOB_VIEW&contentType=json&gubun=job_dic_list&jobdicSeq={seq}"
+    url = f"https://www.career.go.kr/cnet/front/openapi/job.json?apiKey={api_key}&seq={seq}"
     url_info = f"https://www.career.go.kr/cnet/front/base/job/jobView.do?SEQ={seq}"
     response = requests.get(url)
     response.raise_for_status()
@@ -42,8 +42,6 @@ def get_detail(seq):
     depart_data = [item['depart_name'] for item in data.get('departList', []) if 'depart_name' in item]
     certi_data = [item['certi'] for item in data.get('certiList', []) if 'certi' in item]
     forcast_data = [item['forecast'] for item in data.get('forecastList', []) if 'forecast' in item]
-
-
 
     return {
         "work_data": work_data,
