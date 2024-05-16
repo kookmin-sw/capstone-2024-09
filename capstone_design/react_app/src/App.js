@@ -75,7 +75,7 @@ function App() {
             } else if (!isNaN(inputMessage)) {
                 if (jobList) { // 직업 추천을 받았다면
                     console.log(jobList)
-                    const jobIndex = parseInt(inputMessage);
+                    const jobIndex = parseInt(inputMessage) - 1;
                     const jobKeys = Object.keys(jobList);
                     if (jobIndex >= 0 && jobIndex < jobKeys.length) {
                         const selectedJob = jobKeys[jobIndex];
@@ -134,7 +134,7 @@ function App() {
                 backgroundColor: 'rgba(240, 240, 240, 0.7)'
             }}>🤖 학생 진로 상담 AI 챗봇 올빼미 🤖
                 <br/>
-                <small><small><small>AI 상담사와의 대화 내용을 토대로 직업을 추천받고 싶으시면 "이제 직업을 추천해주세요"라고 얘기해주세요.</small></small></small>
+                <small><small><small>AI 상담사와의 대화 내용을 토대로 직업을 추천받고 싶으시면 "직업을 추천해주세요"라고 얘기해주세요.</small></small></small>
             </h1>
             {loading && <LoadingSpinner />} {/* 로딩 바 표시 */}
             <ChatBox history={history} />

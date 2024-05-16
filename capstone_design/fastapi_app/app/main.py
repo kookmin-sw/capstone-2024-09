@@ -11,7 +11,6 @@ from .open_ai import get_chat_response
 from .db_query import save_chats, get_job_categories
 from .job_info_detail import get_data_from_api, get_detail
 
-session_secret_key = os.getenv('session_secret_key')
 app = FastAPI(default_response_class=UJSONResponse)
 
 origins = [
@@ -94,7 +93,19 @@ async def get_job_info(request: Request):
 # main.py
 @app.get("/api/get_job_detail/{job_code}")
 async def get_job_detail(job_code: int):
-
     job_detail = get_detail(job_code)
-    print(f"{job_code}에 대한 정보 : {job_detail}")
-    return {"response": job_detail}
+    work_data_str = ' '.join(job_detail['work_data'])
+    rel_job_data_str = ', '.join(job_detail['rel_job_data'])
+    depart_data_str = ', '.join(job_detail['depart_data'])
+    certi_data_str = ', '.join(job_detail['certi_data'])
+    forcast_data_str = ' '.join(job_detail['forcast_data'])
+
+    job_info_contents = f"요청하신 {job_detail['job_nm']} 직업에 대한 자세한 정보입니다.\n\n "
+    job_info_contents += f"- 직업 정보 : {work_data_str}\n\n"
+    job_info_contents += f"- 관련 직업 : {rel_job_data_str}\n\n" if rel_job_data_str != '' else ""
+    job_info_contents += f"- 관련 학과 : {depart_data_str}\n\n" if depart_data_str != '' else ""
+    job_info_contents += f"- 자격증 : {certi_data_str}\n\n" if certi_data_str != '' else ""
+    job_info_contents += f"- 전망 : {forcast_data_str}\n\n" if forcast_data_str != '' else ""
+    job_info_contents += f"- 직업 정보 URL : {job_detail['url_info']}\n\n"
+
+    return {"response": job_info_contents}
