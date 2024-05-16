@@ -35,7 +35,7 @@ def get_detail(seq):
     response.raise_for_status()
     data = response.json()
 
-    print(data)
+    print(f"job detail : {data}")
 
     work_data = [item['work'] for item in data.get('worklist', []) if 'work' in item]
     rel_job_data = [item['rel_job_nm'] for item in data.get('searchJobCd', []) if 'rel_job_nm' in item]

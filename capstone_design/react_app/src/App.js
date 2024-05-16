@@ -11,6 +11,7 @@ function App() {
     const [history, setHistory] = useState([]); // 모든 메시지를 관리하는 상태 변수 (이전 메시지 기록)
     const [inputMessage, setInputMessage] = useState('');   // 사용자 입력을 관리하는 상태 변수 (생성된 응답 기록)
     const [loading, setLoading] = useState(false);   // 생성형 ai로부터 응답을 기다리고 있는지의 여부를 나타내는 상태 변수
+    const [jobList, setJobList] = useState([]);
 
     const handleRefresh = async () => {
         await fetch('http://develop.sung4854.com:5000/api/reset_session', {
@@ -50,7 +51,6 @@ function App() {
                 if (response.ok) {
                     const data = await response.json();
                     const consultantMessage = { role: 'consultant', content: data.response };
-                    // setHistory([...history, newHistory, consultantMessage]); // consultMessage도 함께 추가
 
                     // 분석 결과를 사용하여 직업 정보를 가져오는 /api/get_job_info 호출
                     response = await fetch('http://develop.sung4854.com:5000/api/get_job_info', {
@@ -64,20 +64,16 @@ function App() {
                     if (response.ok) {
                         const data = await response.json();
                         const consultantMessage = { role: 'consultant', content: data.response };
-                        setHistory([...history, newHistory, consultantMessage]); // consultMessage 추가
+                        setHistory([...history, newHistory, consultantMessage]);
+                        setJobList(data);
                     } else {
                         throw new Error('Network response was not ok');
                     }
                 } else {
                     throw new Error('Network response was not ok');
                 }
-            } else if (!isNaN(inputMessage)) { // 사용자 입력이 숫자인 경우
-                // 세션을 확인하여 직업 추천을 받았는지 확인
-                const sessionResponse = await fetch(`http://develop.sung4854.com:5000/api/check_session`, {
-                    method: 'GET',
-                });
-                const sessionData = await sessionResponse.json();
-                if (sessionData.session_data.job_list) { // 직업 추천을 받았다면
+            } else if (!isNaN(inputMessage)) {
+                if (jobList) { // 직업 추천을 받았다면
                     response = await fetch(`http://develop.sung4854.com:5000/api/get_job_detail/${inputMessage}`, {
                         method: 'GET',
                     });
