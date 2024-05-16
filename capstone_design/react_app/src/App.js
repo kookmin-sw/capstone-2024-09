@@ -65,7 +65,7 @@ function App() {
                         const data = await response.json();
                         const consultantMessage = { role: 'consultant', content: data.response };
                         setHistory([...history, newHistory, consultantMessage]);
-                        setJobList(data);
+                        setJobList(data.job_index);
                     } else {
                         throw new Error('Network response was not ok');
                     }

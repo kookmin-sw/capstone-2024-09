@@ -6,7 +6,6 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import UJSONResponse
 from pydantic import BaseModel
-from starlette.middleware.sessions import SessionMiddleware
 
 from .open_ai import get_chat_response
 from .db_query import save_chats, get_job_categories
@@ -14,7 +13,6 @@ from .job_info_detail import get_data_from_api, get_detail
 
 session_secret_key = os.getenv('session_secret_key')
 app = FastAPI(default_response_class=UJSONResponse)
-app.add_middleware(SessionMiddleware, secret_key="session_secret_key")
 
 origins = [
     "http://localhost:3000",  # React 앱의 도메인
@@ -113,15 +111,16 @@ async def get_job_info(request: Request):
     if len(job_list) == 0:
         return {"response": "조금 더 자세한 질문을 해주시겠어요?"}
 
-    request.session["job_list"] = job_list
     contents = f"상담 결과 {job_info['job']}이 적합한 직업군 이라고 생각합니다. 해당 관련직에 관련된 직업에 대해 말씀드리겠습니다."
+    job_index = []
 
     for index, (job_name, job_info) in enumerate(job_list.items()):
         related_job_name = job_info[1]
         contents += f"\n\n {index + 1}. {job_name}({related_job_name})"
+        job_index.append(job_info[0])
     contents += "\n\n위의 직업군 중에서 조금 더 자세하게 알고 싶은 직업이 있으신가요?? 번호를 입력해주세요!"
 
-    return {"response": contents}
+    return {"response": contents, "job_index": job_index}
 
 # main.py
 @app.get("/api/get_job_detail/{job_code}")
