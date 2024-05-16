@@ -42,42 +42,11 @@ def read_root():
 async def chat(request: Request, message: Message):
     role = message.messages['role']
     msg = message.messages['content']
-    job_list = request.session.get("job_list")
 
-    print(job_list)
-
-    if job_list:
-        if msg.isdigit():
-            job_name = list(job_list.keys())[int(msg)]
-            job_info = job_list[job_name]
-            job_code = job_info[0]
-            related_job_name = job_info[1]
-            contents = f"{job_name}에 대한 정보를 알려드리겠습니다.\n\n"
-            contents += f"직업 코드: {job_code}\n관련 직업: {related_job_name}"
-            print(contents)
-            return {"response": contents}
-        else:
-            return {"response": "숫자로 입력해주세요."}
-    else:
-        return_mes = get_chat_response(msg)
-        await save_chats(role, msg) # 사용자의 질문 저장
-        await save_chats(role, return_mes) # AI의 답변에 대한 저장
+    return_mes = get_chat_response(msg)
+    await save_chats(role, msg) # 사용자의 질문 저장
+    await save_chats(role, return_mes) # AI의 답변에 대한 저장
     return {"response": return_mes}
-
-@app.get("/api/check_session")
-async def check_session(request: Request):
-    print(dict(request.session))
-    return {"session_data": dict(request.session)}
-
-@app.post("/api/test_seesion")
-def set_session(request: Request):
-    job_list = {"test": "test"}
-    request.session["job_list"] = job_list
-
-@app.get("/api/reset_session")
-async def reset_session(request: Request):
-    request.session.clear()
-    return {"message": "Session has been reset."}
 
 @app.post("/api/predict")
 async def predict(request: Request):
