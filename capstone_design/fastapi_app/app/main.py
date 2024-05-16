@@ -118,7 +118,7 @@ async def get_job_info(request: Request):
 
     for index, (job_name, job_info) in enumerate(job_list.items()):
         related_job_name = job_info[1]
-        contents += f"\n\n {index}. {job_name}({related_job_name})"
+        contents += f"\n\n {index + 1}. {job_name}({related_job_name})"
     contents += "\n\n위의 직업군 중에서 조금 더 자세하게 알고 싶은 직업이 있으신가요?? 번호를 입력해주세요!"
 
     return {"response": contents}

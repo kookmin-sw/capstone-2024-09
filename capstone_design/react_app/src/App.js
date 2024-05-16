@@ -74,11 +74,13 @@ function App() {
                 }
             } else if (!isNaN(inputMessage)) {
                 if (jobList) { // 직업 추천을 받았다면
+                    console.log(jobList)
                     const jobIndex = parseInt(inputMessage);
                     const jobKeys = Object.keys(jobList);
                     if (jobIndex >= 0 && jobIndex < jobKeys.length) {
                         const selectedJob = jobKeys[jobIndex];
                         const jobInfo = jobList[selectedJob];
+                        console.log(jobInfo)
                         response = await fetch(`http://develop.sung4854.com:5000/api/get_job_detail/${jobInfo}`, {
                             method: 'GET',
                         });
