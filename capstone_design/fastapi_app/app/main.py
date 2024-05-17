@@ -71,11 +71,7 @@ async def get_job_info(request: Request):
         return {"message": "Invalid request data."}
 
     job_info = await get_job_categories(result)
-    print(job_info)
     job_list = get_data_from_api(job_info['searchAptdCodes'], words)
-
-    print(f"job_list : {job_list}")
-
     if len(job_list) == 0:
         return {"response": "조금 더 자세한 질문을 해주시겠어요?"}
 
@@ -106,6 +102,7 @@ async def get_job_detail(job_code: int):
     job_info_contents += f"- 관련 학과 : {depart_data_str}\n\n" if depart_data_str != '' else ""
     job_info_contents += f"- 자격증 : {certi_data_str}\n\n" if certi_data_str != '' else ""
     job_info_contents += f"- 전망 : {forcast_data_str}\n\n" if forcast_data_str != '' else ""
-    job_info_contents += f"- 직업 정보 URL : {job_detail['url_info']}\n\n"
+    job_info_contents += f"- 직업 정보 URL : {job_detail['url_info']}"
+    job_info_contents += "\n\n더 궁금한 사항이 있으시면 말씀해주세요!"
 
     return {"response": job_info_contents}
