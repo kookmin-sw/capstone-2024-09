@@ -14,15 +14,15 @@ We use chatbots to provide career counseling to students, recommend jobs they pr
 
 ### 🖥 Back-End
 <img alt="streamlit" src="https://img.shields.io/badge/fastapi-FFFFFF.svg?&style=for-the-badge&logo=fastapi&logoColor=red"/>  \
-<img alt="AWS" src="https://img.shields.io/badge/AWS EC2-FF9900.svg?&style=for-the-badge&logo=amazonec2&logoColor=green"/><img alt="AWS" src="https://img.shields.io/badge/AWS RDS-527FFF.svg?&style=for-the-badge&logo=amazonrds&logoColor=green"/>  \
-<img alt="GHCR" src="https://img.shields.io/badge/GHCR-181717.svg?&style=for-the-badge&logo=github&logoColor=white"/><img alt="Docker" src="https://img.shields.io/badge/Docker-2496ED.svg?&style=for-the-badge&logo=Docker&logoColor=white"/> <img alt="github action" src="https://img.shields.io/badge/Github Actions-2088FF.svg?&style=for-the-badge&logo=Github Actions&logoColor=white"/>
+<img alt="AWS" src="https://img.shields.io/badge/AWS EC2-FF9900.svg?&style=for-the-badge&logo=amazonec2&logoColor=green"/> <img alt="AWS" src="https://img.shields.io/badge/AWS RDS-527FFF.svg?&style=for-the-badge&logo=amazonrds&logoColor=green"/> <img alt="mysql" src="https://img.shields.io/badge/Mysql-4479a1.svg?&style=for-the-badge&logo=mysql&logoColor=white"/>  \
+<img alt="GHCR" src="https://img.shields.io/badge/GHCR-181717.svg?&style=for-the-badge&logo=github&logoColor=white"/> <img alt="Docker" src="https://img.shields.io/badge/Docker-2496ED.svg?&style=for-the-badge&logo=Docker&logoColor=white"/> <img alt="github action" src="https://img.shields.io/badge/Github Actions-2088FF.svg?&style=for-the-badge&logo=Github Actions&logoColor=white"/>
 
 ### 🖥 AI
-<img alt="scikit learn" src="https://img.shields.io/badge/scikit learn-F7931E.svg?style=for-the-badge&logo=scikitlearn&logoColor=white"> <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white"> <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white">\
+<img alt="scikit learn" src="https://img.shields.io/badge/scikit  learn-F7931E.svg?style=for-the-badge&logo=scikitlearn&logoColor=white"> <img src="https://img.shields.io/badge/Open Ai-412991?style=for-the-badge&logo=openai&logoColor=white"> <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white">\
 <img src="https://img.shields.io/badge/google colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white"> <img src="https://img.shields.io/badge/numpy-013243?style=for-the-badge&logo=numpy&logoColor=white"> <img src="https://img.shields.io/badge/json-000000?style=for-the-badge&logo=json&logoColor=white">
 
 ### 🖥 협업
-<img alt="Html" src ="https://img.shields.io/badge/github-181717.svg?&style=for-the-badge&logo=github&logoColor=white"/><img alt="Html" src ="https://img.shields.io/badge/Notion-000000.svg?&style=for-the-badge&logo=Notion&logoColor=white"/><img alt="Html" src ="https://img.shields.io/badge/Slack-4A154B.svg?&style=for-the-badge&logo=Slack&logoColor=white"/>
+<img alt="Html" src ="https://img.shields.io/badge/github-181717.svg?&style=for-the-badge&logo=github&logoColor=white"/> <img alt="Html" src ="https://img.shields.io/badge/Notion-000000.svg?&style=for-the-badge&logo=Notion&logoColor=white"/> <img alt="Html" src ="https://img.shields.io/badge/Slack-4A154B.svg?&style=for-the-badge&logo=Slack&logoColor=white"/>
 
 ## 서비스 구조
 ![image](https://github.com/kookmin-sw/capstone-2024-09/assets/61531215/a150ab0d-0d62-4175-84c3-5f854710ff5c)
@@ -42,7 +42,7 @@ We use chatbots to provide career counseling to students, recommend jobs they pr
 
 # 4. 사용법
 ## 서비스 사용
-**서비스 접속 도메인** => http://capstone.sung4854.com:8501/
+**서비스 접속 도메인** => http://capstone.sung4854.com
 *사이트 접속 시 기존 챗봇 사용과 동일하게 사용하시면 됩니다*
 *추 후 자세한 사용 사진과 설명 추가 예정*
 
@@ -73,3 +73,6 @@ docker-compose --version
 
 ## 중간발표자료
 https://drive.google.com/drive/folders/1T09Pt0a32KGpKNjoF0JSmD79XqslpZvq?usp=sharing
+
+## 포스터
+![2024 9팀 캡스톤 포스터](https://github.com/kookmin-sw/capstone-2024-09/assets/29187870/b1f0cc9c-50f4-4126-bf81-e9667d02478d)
