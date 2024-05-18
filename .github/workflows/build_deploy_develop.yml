@@ -10,7 +10,6 @@ on:
 env:
   DOCKER_FASTAPI_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-fastapi_develop
   DOCKER_REACT_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-react_develop
-  DOCKER_NGINX_IMAGE: ghcr.io/capstone2024-student-counselling-ai-web/capstone_design-nginx_develop
   REGISTRY: ghcr.io
 
 jobs:
