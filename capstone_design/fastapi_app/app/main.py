@@ -8,7 +8,7 @@ from fastapi.responses import UJSONResponse
 from pydantic import BaseModel
 
 from .open_ai import get_chat_response
-from .db_query import save_chats, get_job_categories
+from .db_query import get_job_categories
 from .job_info_detail import get_data_from_api, get_detail
 
 app = FastAPI(default_response_class=UJSONResponse)
@@ -37,13 +37,10 @@ def read_root():
 
 
 @app.post("/api/chat")
-async def chat(request: Request, message: Message):
-    role = message.messages['role']
+async def chat(message: Message):
     msg = message.messages['content']
 
     return_mes = get_chat_response(msg)
-    await save_chats(role, msg) # 사용자의 질문 저장
-    await save_chats(role, return_mes) # AI의 답변에 대한 저장
     return {"response": return_mes}
 
 @app.post("/api/predict")
