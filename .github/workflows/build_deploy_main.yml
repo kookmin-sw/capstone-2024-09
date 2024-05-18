@@ -8,8 +8,8 @@ on:
 
 #환경설정
 env:
-  DOCKER_FASTAPI_IMAGE: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-fastapi_develop
-  DOCKER_REACT_IMAGE: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-react_develop
+  DOCKER_FASTAPI_IMAGE: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-fastapi
+  DOCKER_REACT_IMAGE: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-react
   REGISTRY: ghcr.io
 
 jobs:
