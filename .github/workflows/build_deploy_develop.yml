@@ -8,8 +8,8 @@ on:
 
 #환경설정
 env:
-  DOCKER_FASTAPI_IMAGE: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-fastapi_develop
-  DOCKER_REACT_IMAGE: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-react_develop
+  DOCKER_FASTAPI_IMAGE: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-fastapi
+  DOCKER_REACT_IMAGE: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-react # ghcr(git package) 사용
   REGISTRY: ghcr.io
 
 jobs:
@@ -23,7 +23,6 @@ jobs:
       # github repository에서 checkout
       - name: checkout
         uses: actions/checkout@v4
-
       # docker를 사용하기 위한 기본 세팅
       - name: Set up Docker buildx
         id: buildx
@@ -38,7 +37,7 @@ jobs:
 
       # fastapi app image build and push
       - name: Build fastapi image and push
-        id: docker_build_flask
+        id: docker_build_fastapi
         uses: docker/build-push-action@v5
         with:
           file: ./capstone_design/fastapi_app/Dockerfile
@@ -60,23 +59,23 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
   deploy:
-    needs: build
+    needs: build # build 이후에 실행
     name: Deploy docker image
-    runs-on: [self-hosted, label-test]
+    runs-on: [self-hosted, label-go] # AWS ./configure에서 사용할 label명
     steps:
       # github repository에서 checkout
       - name: checkout
         uses: actions/checkout@v4
-      # docker-compose.yml 파일 옮기기
+      # docker-compose.yml 파일 전송
       - name: Deploy docker_compose file
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.DEVELOP_HOST }}
-          username: ${{ secrets.DEVELOP_USER }}
-          key: ${{ secrets.KEY }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PW }}
           port: ${{ secrets.PORT }}
           source: './docker-compose.yml'
-          target: '/home/ubuntu'
+          target: '/home/iscmyoo/'
       # ghcr 로그인
       - name: Login to ghcr
         uses: docker/login-action@v3
@@ -89,6 +88,6 @@ jobs:
         run: |
           docker rm -f $(docker ps -a -q)
           docker rmi -f $(docker images -q)
-          docker pull ${{ env.DOCKER_FASTAPI_IMAGE }}:latest && docker pull ${{ env.DOCKER_REACT_IMAGE }}:latest && docker pull ${{ env.DOCKER_NGINX_IMAGE }}:latest
-          cd /home/ubuntu
+          docker pull ${{ env.DOCKER_FASTAPI_IMAGE }}:latest && docker pull ${{ env.DOCKER_REACT_IMAGE }}:latest
+          cd /home/iscmyoo/
           docker-compose -f docker-compose.yml --env-file .env up --build -d
