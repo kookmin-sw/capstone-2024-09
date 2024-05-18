@@ -14,7 +14,7 @@ function App() {
     const [jobList, setJobList] = useState([]);
 
     const handleRefresh = async () => {
-        await fetch('http://develop.sung4854.com:5000/api/reset_session', {
+        await fetch('http://capstone.sung4854.com:5000/api/reset_session', {
             method: 'GET',
         });
     };
@@ -50,7 +50,6 @@ function App() {
 
                 if (response.ok) {
                     const data = await response.json();
-                    const consultantMessage = { role: 'consultant', content: data.response };
 
                     // 분석 결과를 사용하여 직업 정보를 가져오는 /api/get_job_info 호출
                     response = await fetch('http://capstone.sung4854.com:5000/api/get_job_info', {

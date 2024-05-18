@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from typing import Dict, Union
-import httpx, os
+import httpx
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -15,7 +15,7 @@ app = FastAPI(default_response_class=UJSONResponse)
 
 origins = [
     "http://fastapi_app:5000",
-    "http://capstone.sung4854.com:3000",
+    "http://capstone.sung4854.com:80",
     "https://capstone.sung4854.com",
     # 추가적인 도메인들...
 ]
