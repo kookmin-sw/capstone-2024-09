@@ -14,7 +14,7 @@ function App() {
     const [jobList, setJobList] = useState([]);
 
     const handleRefresh = async () => {
-        await fetch('${process.env.REACT_APP_API_BASE_URL}/api/reset_session', {
+        await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/reset_session`, {
             method: 'GET',
         });
     };
@@ -40,7 +40,7 @@ function App() {
             let response;
             if (inputMessage.includes("직업을 추천해")) {
                 // 분석 결과를 가져오는 /api/predict 호출
-                let response = await fetch('${process.env.REACT_APP_API_BASE_URL}/api/predict', {
+                let response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/predict`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ function App() {
                     const data = await response.json();
 
                     // 분석 결과를 사용하여 직업 정보를 가져오는 /api/get_job_info 호출
-                    response = await fetch('${process.env.REACT_APP_API_BASE_URL}/api/get_job_info', {
+                    response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/get_job_info`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ function App() {
                     if (jobIndex >= 0 && jobIndex < jobKeys.length) {
                         const selectedJob = jobKeys[jobIndex];
                         const jobInfo = jobList[selectedJob];
-                        response = await fetch('${process.env.REACT_APP_API_BASE_URL}/api/get_job_detail/${jobInfo}', {
+                        response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/get_job_detail/${jobInfo}`, {
                             method: 'GET',
                         });
                     } else {
@@ -88,7 +88,7 @@ function App() {
                     throw new Error('직업 추천을 받지 않았습니다.');
                 }
             } else {
-                response = await fetch('${process.env.REACT_APP_API_BASE_URL}/api/chat', {
+                response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/chat`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
