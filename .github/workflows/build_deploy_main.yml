@@ -10,7 +10,6 @@ on:
 env:
   DOCKER_FASTAPI_IMAGE: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-fastapi
   DOCKER_REACT_IMAGE: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-react # ghcr(git package) 사용
-  DOCKER_NGINX_IMAGE: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-nginx
   REGISTRY: ghcr.io
 
 jobs:
@@ -89,6 +88,6 @@ jobs:
         run: |
           docker rm -f $(docker ps -a -q)
           docker rmi -f $(docker images -q)
-          docker pull ${{ env.DOCKER_FASTAPI_IMAGE }}:latest && docker pull ${{ env.DOCKER_REACT_IMAGE }}:latest && docker pull ${{ env.DOCKER_NGINX_IMAGE }}:latest
+          docker pull ${{ env.DOCKER_FASTAPI_IMAGE }}:latest && docker pull ${{ env.DOCKER_REACT_IMAGE }}:latest
           cd /home/iscmyoo/
           docker-compose -f docker-compose.yml --env-file .env up --build -d
