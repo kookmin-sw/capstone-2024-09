@@ -4,6 +4,6 @@ WORKDIR /Final_Project
 COPY ./capstone_design/react_app ./
 RUN npm install
 
-EXPOSE 80
+EXPOSE 3000
 
 ENTRYPOINT ["npm", "run", "start"]
