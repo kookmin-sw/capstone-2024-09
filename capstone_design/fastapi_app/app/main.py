@@ -17,6 +17,7 @@ origins = [
     "http://fastapi_app:5000",
     "http://capstone.sung4854.com:3000",
     "http://capstone.sung4854.com:80",
+    "http://capstone.sung4854.com",
     # 추가적인 도메인들...
 ]
 
