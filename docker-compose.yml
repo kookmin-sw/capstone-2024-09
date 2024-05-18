@@ -20,7 +20,7 @@ services:
     restart: always
     image: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-react${BRANCH_NAME}
     ports:
-      - "3000:3000"
+      - "80:80"
     networks:
       - my-app-network
     depends_on:
