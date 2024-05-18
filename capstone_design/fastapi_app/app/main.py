@@ -11,7 +11,7 @@ from .open_ai import get_chat_response
 from .db_query import get_job_categories
 from .job_info_detail import get_data_from_api, get_detail
 
-react_address = os.getenv('react_address')
+react_address = os.getenv('REACT_APP_API_BASE_URL')
 
 app = FastAPI(default_response_class=UJSONResponse)
 

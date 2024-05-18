@@ -23,6 +23,8 @@ services:
       - "80:80"
     environment:
       - PORT=80
+    env_file:
+      - .env
     networks:
       - my-app-network
     depends_on:
