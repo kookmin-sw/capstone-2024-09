@@ -21,6 +21,8 @@ services:
     image: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-react${BRANCH_NAME}
     ports:
       - "80:80"
+    environment:
+      - PORT=80
     networks:
       - my-app-network
     depends_on:
