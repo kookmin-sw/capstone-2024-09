@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from typing import Dict, Union
-import httpx, os
+import httpx
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,16 +8,16 @@ from fastapi.responses import UJSONResponse
 from pydantic import BaseModel
 
 from .open_ai import get_chat_response
-from .db_query import save_chats, get_job_categories
+from .db_query import get_job_categories
 from .job_info_detail import get_data_from_api, get_detail
 
 app = FastAPI(default_response_class=UJSONResponse)
 
 origins = [
-    "http://localhost:3000",  # React 앱의 도메인
     "http://fastapi_app:5000",
-    "http://develop.sung4854.com:3000",
-    "https://develop.sung4854.com",
+    "http://capstone.sung4854.com:3000",
+    "http://capstone.sung4854.com:80",
+    "http://capstone.sung4854.com",
     # 추가적인 도메인들...
 ]
 
@@ -38,13 +38,10 @@ def read_root():
 
 
 @app.post("/api/chat")
-async def chat(request: Request, message: Message):
-    role = message.messages['role']
+async def chat(message: Message):
     msg = message.messages['content']
 
     return_mes = get_chat_response(msg)
-    await save_chats(role, msg) # 사용자의 질문 저장
-    await save_chats(role, return_mes) # AI의 답변에 대한 저장
     return {"response": return_mes}
 
 @app.post("/api/predict")

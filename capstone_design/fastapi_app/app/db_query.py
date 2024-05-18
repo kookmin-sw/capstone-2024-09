@@ -22,16 +22,6 @@ class Chat(Base):
     role = Column(String)
     content = Column(String)
 
-
-async def save_chats(role, msg):
-    session = SessionLocal()
-    try:
-        new_chat = Chat(role=role, content=msg)
-        session.add(new_chat)
-        session.commit()
-    finally:
-        session.close()
-
 async def get_job_categories(id: int):
     with engine.connect() as connection:
         id += 1
