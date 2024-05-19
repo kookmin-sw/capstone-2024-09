@@ -30,7 +30,7 @@ We use chatbots to provide career counseling to students, recommend jobs they pr
 
 # 2. 소개 영상
 
-[![Video Label](http://img.youtube.com/vi/tx8chBLjQVg/0.jpg)](https://youtu.be/tx8chBLjQVg?t=0s)
+[![Video Label](http://img.youtube.com/vi/l23EYe1khBI/0.jpg)](https://youtu.be/l23EYe1khBI?t=0s)
 
 # 3. 👩‍👩‍👧‍👧 팀 소개
 
