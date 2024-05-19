@@ -115,7 +115,7 @@ DB_NAME = [사용하는 DB 이름]
 
 #### CORS 문제 해결
 **서버 구축 시 CORS 문제로 인해 설정 일부분을 변경해야 한다.** \
-파일 경로 : /fastapi_app/package.json
+파일 경로 : /react_app/package.json
 ```
 "proxy": [fastapi 접속 주소]
 ```
