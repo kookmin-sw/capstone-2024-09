@@ -48,6 +48,7 @@ We use chatbots to provide career counseling to students, recommend jobs they pr
 ![image](https://github.com/kookmin-sw/capstone-2024-09/assets/61531215/6dffa9af-1901-4445-904e-ce398626526f)
 
 **2. 어느정도 진로 상담을 한 뒤 직업을 추천 받고 싶으면 "직업을 추천해주세요"라는 문구를 작성하면 직업을 추천해줍니다.**
+
 ![image](https://github.com/kookmin-sw/capstone-2024-09/assets/61531215/4d27e2dd-1560-42db-b2b8-fd192a4bdf9b)
 
 **3. 추천 받은 직업 중 더 자세하게 알고 싶은 직업의 경우 번호를 입력하면 직업에 대한 자세한 정보를 제공해줍니다.**
