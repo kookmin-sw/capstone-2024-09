@@ -7,7 +7,7 @@ services:
   fastapi_app:
     container_name: fastapi_app
     restart: always
-    image: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-fastapi${BRANCH_NAME}
+    image: capstone_design-fastapi
     ports:
       - "5000:5000"
     env_file:
@@ -18,11 +18,13 @@ services:
   react_app:
     container_name: react_app
     restart: always
-    image: ghcr.io/kookmin-sw/capstone-2024-09/capstone_design-react${BRANCH_NAME}
+    image: capstone_design-react
     ports:
       - "80:80"
     environment:
       - PORT=80
+    env_file:
+      - .env
     networks:
       - my-app-network
     depends_on:

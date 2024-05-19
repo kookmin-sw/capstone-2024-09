@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from typing import Dict, Union
-import httpx
+import httpx, os
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -11,14 +11,12 @@ from .open_ai import get_chat_response
 from .db_query import get_job_categories
 from .job_info_detail import get_data_from_api, get_detail
 
+react_address = os.getenv('REACT_APP_API_BASE_URL')
+
 app = FastAPI(default_response_class=UJSONResponse)
 
 origins = [
-    "http://fastapi_app:5000",
-    "http://capstone.sung4854.com:3000",
-    "http://capstone.sung4854.com:80",
-    "http://capstone.sung4854.com",
-    # 추가적인 도메인들...
+    react_address,
 ]
 
 app.add_middleware(
