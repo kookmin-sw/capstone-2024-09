@@ -125,6 +125,8 @@ DB_NAME = [사용하는 DB 이름]
 docker-compose -f docker-compose.yml --env-file .env up --build -d
 ```
 
+**위와 같이 수행하면 컨테이너 환경의 React와 FastAPI가 구축되고 서비스를 구축할 수 있다.**
+
 # 5. 기타
 
 ## 중간발표자료
