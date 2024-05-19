@@ -42,9 +42,18 @@ We use chatbots to provide career counseling to students, recommend jobs they pr
 
 # 4. 사용법
 ## 서비스 사용
-**서비스 접속 도메인** => http://capstone.sung4854.com
-*사이트 접속 시 기존 챗봇 사용과 동일하게 사용하시면 됩니다*
-*추 후 자세한 사용 사진과 설명 추가 예정*
+**서비스 접속 도메인** : http://capstone.sung4854.com
+
+**1. 사이트 접속 후 기존 챗봇과 동일하게 진로 상담 내용을 작성하시면 됩니다.**
+![image](https://github.com/kookmin-sw/capstone-2024-09/assets/61531215/6dffa9af-1901-4445-904e-ce398626526f)
+
+**2. 어느정도 진로 상담을 한 뒤 직업을 추천 받고 싶으면 "직업을 추천해주세요"라는 문구를 작성하면 직업을 추천해줍니다.**
+![image](https://github.com/kookmin-sw/capstone-2024-09/assets/61531215/4d27e2dd-1560-42db-b2b8-fd192a4bdf9b)
+
+**3. 추천 받은 직업 중 더 자세하게 알고 싶은 직업의 경우 번호를 입력하면 직업에 대한 자세한 정보를 제공해줍니다.**
+![image](https://github.com/kookmin-sw/capstone-2024-09/assets/61531215/02602319-c086-474b-93ea-b3ae458ce4d1)
+
+
 
 ## 서비스 구축
 ### Ubuntu 환경
@@ -67,7 +76,54 @@ sudo curl -L https://github.com/docker/compose/releases/download/v2.5.0/docker-c
 sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```
-추 후 작성 예정
+
+#### React 및 FastAPI Docker iamge 받기
+```
+# React image
+docker pull iscmyoo/capstone_design-react:latest
+docker tag iscmyoo/capstone_design-react:latest capstone_design-react:latest
+docker rmi -f iscmyoo/capstone_design-react:latest
+
+# FastAPI image
+docker pull iscmyoo/capstone_design-fastapi:latest
+docker tag iscmyoo/capstone_design-fastapi:latest capstone_design-fastapi:latest
+docker rmi -f iscmyoo/capstone_design-fastapi:latest
+```
+
+#### 서비스에 필요한 환경변수 세팅
+**환경변수 세팅에 앞서 Open AI API와 커리어넷 API 토큰이 필요합니다. 아래 링크를 통해 API 토큰 발급 받으세요**\
+**Open AI : https://openai.com/** \
+**커리어넷 : https://www.career.go.kr/cnet/front/openapi/openApiUseGuideCenter.do** 
+
+**또한 AWS RDS 서비스를 이용하기에 세팅이 필요하다.**\
+**RDS 세팅의 경우 아래 블로그를 참고하자**\
+*https://cloud-oky.tistory.com/976*
+
+**API 토큰과 RDS 설정에서 사용자, 비밀번호, 접속 Host, DB 이름을 설정했으면 아래와 같이 .env 환경변수 파일을 만들어 해당 내용을 저장한다.**
+```
+# API environments
+OPENAI_API_KEY = [OPEN AI 토큰]
+career_api_key = [커리어넷 토큰]
+REACT_APP_API_BASE_URL = [fastapi 서버가 구동되는 서버 주소]
+
+# DB environments
+DB_USER = [DB 사용자 이름]
+DB_PASSWORD = [DB 사용자 비밀번호]
+DB_HOST = [DB Host 주소] # 블로그 내용 참고
+DB_NAME = [사용하는 DB 이름]
+```
+
+#### CORS 문제 해결
+**서버 구축 시 CORS 문제로 인해 설정 일부분을 변경해야 한다.** \
+파일 경로 : /fastapi_app/package.json
+```
+"proxy": [fastapi 접속 주소]
+```
+
+#### 다운 받은 이미지를 기반으로 컨테이너 생성
+```
+docker-compose -f docker-compose.yml --env-file .env up --build -d
+```
 
 # 5. 기타
 
