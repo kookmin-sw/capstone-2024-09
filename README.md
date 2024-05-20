@@ -133,5 +133,8 @@ docker-compose -f docker-compose.yml --env-file .env up --build -d
 ## 중간발표자료
 https://drive.google.com/drive/folders/1T09Pt0a32KGpKNjoF0JSmD79XqslpZvq?usp=sharing
 
+## 최종발표자료
+https://drive.google.com/file/d/13tccn-Qnz758MEdKcrjWxUJ7HOg9w4SV/view?usp=drive_link
+
 ## 포스터
 ![2024 9팀 캡스톤 포스터](https://github.com/kookmin-sw/capstone-2024-09/assets/29187870/b1f0cc9c-50f4-4126-bf81-e9667d02478d)
